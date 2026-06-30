@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>課程進度</title>
+<meta name="description" content="高中社會課程：每堂課的內容、參考與練習，可直接下載。">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%233E726B'/%3E%3Cpath d='M50,30V60M37,50L50,63L63,50M33,72H67' fill='none' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<title>高中社會</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
@@ -195,7 +198,7 @@
   <main class="wrap">
     <header>
       <h1 class="course-title" id="courseTitle">高中社會</h1>
-      <p class="course-desc" id="courseDesc">每堂課的內容、參考與練習，可直接下載。</p>
+      <p class="course-desc" id="courseDesc">課程內容、參考與練習，可自行直接下載。</p>
     </header>
 
     <div class="controls">
@@ -226,8 +229,8 @@
     </table>
 
     <footer class="colophon">
-      <span id="colophonLeft">由家教老師維護</span>
-      <span id="colophonRight">最後更新 2026</span>
+      <span id="colophonLeft">built/maintained by lsx</span>
+      <span id="colophonRight"></span>
     </footer>
   </main>
 
@@ -239,6 +242,7 @@ const COURSE = {
   title: "高中社會",
   desc:  "課程內容、參考與練習，可自行直接下載。",
   maintainer: "built/maintained by lsx",
+  // updated: "2026 秋季",   // 想顯示「最後更新」就把這行打開並填值
 };
 
 /* 資料來源：同一個資料夾裡的 data.json（部署到 GitHub Pages 時一起放上去）。
@@ -288,15 +292,15 @@ let allRows = [];
 let searchTerm = "";
 
 function esc(s){
-  return String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;" }[c]));
+  return String(s ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;" }[c]));
 }
 
 function applyCourseMeta(){
   document.title = COURSE.title;
   document.getElementById("courseTitle").textContent = COURSE.title;
   document.getElementById("courseDesc").textContent = COURSE.desc;
-  document.getElementById("colophonLeft").textContent = COURSE.maintainer;
-  document.getElementById("colophonRight").textContent = COURSE.updated;
+  document.getElementById("colophonLeft").textContent = COURSE.maintainer || "";
+  document.getElementById("colophonRight").textContent = COURSE.updated || "";
 }
 
 async function loadRows(){

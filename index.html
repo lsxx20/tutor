@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>課程進度</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --text:#2B2B2B;
+    --text-soft:#6F6F6F;
+    --teal:#3E726B;
+    --teal-hover:#2D544F;
+    --border:#DBDBDB;
+    --border-strong:#C4C4C4;
+    --header:#1A1A1A;
+    --sans:"Noto Sans TC", system-ui, -apple-system, "Helvetica Neue", sans-serif;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ -webkit-text-size-adjust:100%; }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{
+    max-width:980px;
+    margin:0 auto;
+    padding:clamp(2rem,5vw,3.5rem) clamp(1rem,4vw,2rem) clamp(3rem,7vw,4.5rem);
+  }
+
+  .course-title{
+    font-weight:700;
+    font-size:clamp(1.5rem,4vw,1.95rem);
+    color:var(--header);
+    margin:0 0 .45rem;
+    letter-spacing:.01em;
+  }
+  .course-desc{
+    color:var(--text-soft);
+    font-size:.95rem;
+    margin:0 0 1.4rem;
+    max-width:54ch;
+  }
+
+  .controls{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    margin:0 0 .85rem;
+  }
+  .search{ position:relative; display:flex; align-items:center; }
+  .search .glass{ position:absolute; left:.1rem; color:var(--text-soft); display:flex; pointer-events:none; }
+  .search input{
+    appearance:none;
+    background:none;
+    border:0;
+    border-bottom:1px solid var(--border-strong);
+    padding:.25rem .2rem .3rem 1.5rem;
+    width:11rem;
+    max-width:60vw;
+    font-family:var(--sans);
+    font-size:.86rem;
+    color:var(--text);
+    transition:border-color .15s ease, width .2s ease;
+  }
+  .search input::placeholder{ color:var(--text-soft); }
+  .search input:focus{ outline:none; border-bottom-color:var(--teal); width:13rem; }
+
+  .schedule{
+    width:100%;
+    border-collapse:collapse;
+    font-size:.92rem;
+  }
+  .schedule th{
+    text-align:left;
+    vertical-align:bottom;
+    font-weight:700;
+    color:var(--header);
+    padding:.65rem .8rem;
+    border:1px solid var(--border);
+    border-bottom:2px solid var(--border-strong);
+    background:var(--bg);
+    white-space:nowrap;
+  }
+  .schedule td{
+    vertical-align:top;
+    padding:.8rem .8rem;
+    border:1px solid var(--border);
+  }
+
+  .lec-cell{ white-space:nowrap; font-weight:600; color:var(--text); }
+
+  .cell-item{ margin-bottom:.32rem; }
+  .cell-item:last-child{ margin-bottom:0; }
+
+  .ref-note{
+    margin-top:.4rem;
+    font-size:.82rem;
+    color:var(--text-soft);
+    line-height:1.5;
+  }
+  .ref-note .ref-label{ color:var(--text-soft); }
+
+  a.link{
+    color:var(--teal);
+    text-decoration:none;
+    transition:color .15s ease;
+  }
+  a.link:hover{ color:var(--teal-hover); text-decoration:underline; text-underline-offset:2px; }
+  a.link:focus-visible{ outline:2px solid var(--teal); outline-offset:2px; border-radius:2px; }
+
+  .muted{ color:var(--text-soft); }
+
+  .dl{
+    display:inline-flex;
+    vertical-align:-2px;
+    margin-left:.28rem;
+    color:var(--teal);
+    transition:transform .15s ease, color .15s ease;
+  }
+  a.link:hover .dl{ color:var(--teal-hover); transform:translateY(2px); }
+  .dl svg{ display:block; width:13px; height:13px; }
+
+  .bracket{ color:var(--text-soft); }
+
+  .empty-state{ padding:2.5rem .8rem; color:var(--text-soft); }
+  .empty-state .accent{ color:var(--text); font-weight:500; }
+
+  .colophon{
+    margin-top:1.6rem;
+    font-size:.78rem;
+    color:var(--text-soft);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:.5rem;
+  }
+
+  @media (max-width:720px){
+    .schedule thead{ display:none; }
+    .schedule,
+    .schedule tbody,
+    .schedule tr,
+    .schedule td{ display:block; width:100%; }
+
+    .schedule tr{
+      border:1px solid var(--border);
+      border-radius:5px;
+      margin-bottom:1rem;
+      overflow:hidden;
+    }
+    .schedule td{
+      border:0;
+      border-top:1px solid var(--border);
+      padding:.6rem .9rem;
+      display:flex;
+      gap:.8rem;
+    }
+    .schedule td:empty{ display:none; }
+    .schedule td::before{
+      content:attr(data-label);
+      flex:0 0 4rem;
+      font-weight:700;
+      color:var(--header);
+      font-size:.82rem;
+    }
+
+    .lec-cell{
+      border-top:0;
+      background:#FAFAFA;
+      font-weight:700;
+      font-size:1rem;
+    }
+    .lec-cell::before{ content:""; flex:0; }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    a.link, .dl, .search input{ transition:none; }
+    a.link:hover .dl{ transform:none; }
+  }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <h1 class="course-title" id="courseTitle">高中社會</h1>
+      <p class="course-desc" id="courseDesc">每堂課的內容、參考與練習，可直接下載。</p>
+    </header>
+
+    <div class="controls">
+      <label class="search">
+        <span class="glass" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+            <circle cx="7" cy="7" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <input id="search" type="search" placeholder="搜尋課次或主題…" aria-label="搜尋課程">
+      </label>
+    </div>
+
+    <table class="schedule">
+      <colgroup>
+        <col style="width:9%">
+        <col style="width:59%">
+        <col style="width:32%">
+      </colgroup>
+      <thead>
+        <tr>
+          <th scope="col">Lec</th>
+          <th scope="col">課程內容</th>
+          <th scope="col">練習</th>
+        </tr>
+      </thead>
+      <tbody id="tbody" aria-live="polite"></tbody>
+    </table>
+
+    <footer class="colophon">
+      <span id="colophonLeft">由家教老師維護</span>
+      <span id="colophonRight">最後更新 2026</span>
+    </footer>
+  </main>
+
+<script>
+/* ──────────────────────────────────────────────────────────
+   設定區：換課程或換老師用，只動這塊
+   ────────────────────────────────────────────────────────── */
+const COURSE = {
+  title: "高中社會",
+  desc:  "每堂課的內容、參考與練習，可直接下載。",
+  maintainer: "由家教老師維護",
+  updated:    "最後更新 2026"
+};
+
+/* 資料來源：同一個資料夾裡的 data.json（部署到 GitHub Pages 時一起放上去）。
+   要更新課程，編輯 data.json 即可，這個 HTML 不用動。
+   讀不到 data.json 時會退回下方的內建範例，方便預覽。 */
+
+/* 每筆 = 一堂課，依陣列順序自動編成 Lec 1、Lec 2…：
+   - content：課程內容，項目有 url 會顯示下載箭頭
+   - reference：參考章節，顯示在內容下方；有 url 則變連結
+   - sheets：練習，有 url 顯示下載箭頭，bracket:true 會用 [ ] 包起來（如解答） */
+const SAMPLE_DATA = [
+  { content:[{ title:"地圖判讀與 GIS 概論（P.1–6）", url:"#" }],
+    reference:[{ label:"課本 1-1 地圖要素" }, { label:"1-2 GIS 概論" }],
+    sheets:[{ title:"習題 1", url:"#" }, { title:"解答", url:"#", bracket:true }] },
+
+  { content:[{ title:"氣候類型與水文系統（P.7–14）", url:"#" }],
+    reference:[{ label:"課本 2-1 氣候類型" }, { label:"2-3 水文循環" }],
+    sheets:[] },
+
+  { content:[{ title:"台灣史：清領與開港通商（P.15–22）", url:"#" }],
+    reference:[{ label:"課本 3-2 開港通商" }],
+    sheets:[{ title:"習題 2", url:"#" }, { title:"解答", url:"#", bracket:true }] },
+
+  { content:[{ title:"世界史：工業革命的影響（P.23–28）", url:"#" }],
+    reference:[{ label:"課本 5-1 工業革命" }],
+    sheets:[] },
+
+  { content:[{ title:"民主政治與憲政體制（P.29–34）", url:"#" }],
+    reference:[{ label:"課本 7-1 民主原則" }, { label:"7-2 憲政體制" }],
+    sheets:[{ title:"習題 3", url:"#" }] },
+
+  { content:[{ title:"經濟學基礎：供給與需求（P.35–40）", url:"#" }],
+    reference:[{ label:"課本 8-1 供需法則" }],
+    sheets:[] },
+
+  { content:[{ title:"地方政府與公共參與（P.41–48）", url:"#" }],
+    reference:[{ label:"課本 9-1 地方自治" }],
+    sheets:[{ title:"習題 4", url:"#" }, { title:"解答", url:"#", bracket:true }] }
+];
+
+/* ──────────────────────────────────────────────────────────
+   程式邏輯，通常不需修改
+   ────────────────────────────────────────────────────────── */
+const ICON_DL = '<span class="dl" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.5v8"/><path d="M4.5 7L8 10.5 11.5 7"/><path d="M2.8 13.2h10.4"/></svg></span>';
+
+let allRows = [];
+let searchTerm = "";
+
+function esc(s){
+  return String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;" }[c]));
+}
+
+function applyCourseMeta(){
+  document.title = COURSE.title;
+  document.getElementById("courseTitle").textContent = COURSE.title;
+  document.getElementById("courseDesc").textContent = COURSE.desc;
+  document.getElementById("colophonLeft").textContent = COURSE.maintainer;
+  document.getElementById("colophonRight").textContent = COURSE.updated;
+}
+
+async function loadRows(){
+  try{
+    const res = await fetch("data.json", { cache:"no-store" });
+    if(!res.ok) throw new Error("HTTP "+res.status);
+    const data = await res.json();
+    return Array.isArray(data) ? data : SAMPLE_DATA;
+  }catch(err){
+    console.warn("讀取 data.json 失敗，改用內建範例：", err);
+    return SAMPLE_DATA;
+  }
+}
+
+function downloadLink(item){
+  const dl = (item.url && item.url !== "#") ? ' download' : '';
+  return `<a class="link" href="${esc(item.url || "#")}"${dl}>${esc(item.title)}${ICON_DL}</a>`;
+}
+
+function contentCell(content, reference){
+  let html = (content||[]).map(i => `<div class="cell-item">${downloadLink(i)}</div>`).join("");
+  if(reference && reference.length){
+    const refs = reference.map(i => i.url
+      ? `<a class="link" href="${esc(i.url)}" target="_blank" rel="noopener">${esc(i.label)}</a>`
+      : esc(i.label)
+    ).join("、");
+    html += `<div class="ref-note"><span class="ref-label">參考：</span>${refs}</div>`;
+  }
+  return html;
+}
+
+function sheetsCell(items){
+  if(!items || !items.length) return "";
+  return items.map(i => {
+    const link = downloadLink(i);
+    return `<div class="cell-item">${ i.bracket ? '<span class="bracket">[</span>'+link+'<span class="bracket">]</span>' : link }</div>`;
+  }).join("");
+}
+
+function rowMatches(row){
+  if(!searchTerm) return true;
+  const parts = ["Lec " + row._lec];
+  (row.content||[]).forEach(i => parts.push(i.title));
+  (row.reference||[]).forEach(i => parts.push(i.label));
+  (row.sheets||[]).forEach(i => parts.push(i.title));
+  return parts.join(" ").toLowerCase().includes(searchTerm.toLowerCase());
+}
+
+function render(){
+  const tbody = document.getElementById("tbody");
+  const numbered = allRows.map((row, i) => Object.assign({}, row, { _lec: i + 1 }));
+  const rows = numbered.filter(rowMatches);
+  tbody.innerHTML = "";
+
+  if(rows.length === 0){
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td colspan="3" class="empty-state">找不到「<span class="accent">${esc(searchTerm)}</span>」相關的課次。換個關鍵字試試。</td>`;
+    tbody.appendChild(tr);
+    return;
+  }
+
+  rows.forEach(row => {
+    const tr = document.createElement("tr");
+    tr.innerHTML =
+      `<td class="lec-cell" data-label="Lec">Lec ${row._lec}</td>` +
+      `<td data-label="課程內容">${contentCell(row.content, row.reference)}</td>` +
+      `<td data-label="練習">${sheetsCell(row.sheets)}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+document.getElementById("search").addEventListener("input", e => {
+  searchTerm = e.target.value.trim();
+  render();
+});
+
+(async function init(){
+  applyCourseMeta();
+  document.getElementById("tbody").innerHTML = '<tr><td colspan="3" class="empty-state">載入課程中…</td></tr>';
+  allRows = await loadRows();
+  render();
+})();
+</script>
+</body>
+</html>

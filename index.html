@@ -3,10 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="高中社會課程：每堂課的內容、參考與練習，可直接下載。">
-<meta name="theme-color" content="#FFFFFF">
+<title>課程進度</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23ffffff'/%3E%3Crect x='2' y='2' width='96' height='96' rx='20' fill='none' stroke='%23E4DFD3' stroke-width='3'/%3E%3Cg stroke-linecap='round'%3E%3Cline x1='31' y1='39' x2='61' y2='39' stroke='%233E726B' stroke-width='8'/%3E%3Cline x1='31' y1='53' x2='69' y2='53' stroke='%232B2723' stroke-width='8'/%3E%3Cline x1='31' y1='67' x2='55' y2='67' stroke='%232B2723' stroke-width='8'/%3E%3C/g%3E%3C/svg%3E">
-<title>高中社會</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
@@ -103,6 +101,13 @@
   }
 
   .lec-cell{ white-space:nowrap; font-weight:600; color:var(--text); }
+  .lec-date{
+    display:block;
+    margin-top:.15rem;
+    font-size:.78rem;
+    font-weight:400;
+    color:var(--text-soft);
+  }
 
   .cell-item{ margin-bottom:.32rem; }
   .cell-item:last-child{ margin-bottom:0; }
@@ -184,8 +189,11 @@
       background:#FAFAFA;
       font-weight:700;
       font-size:1rem;
+      align-items:baseline;
+      gap:.55rem;
     }
     .lec-cell::before{ content:""; flex:0; }
+    .lec-date{ display:inline; margin-top:0; font-size:.82rem; }
   }
 
   @media (prefers-reduced-motion:reduce){
@@ -198,7 +206,7 @@
   <main class="wrap">
     <header>
       <h1 class="course-title" id="courseTitle">高中社會</h1>
-      <p class="course-desc" id="courseDesc">課程內容、參考與練習，可自行直接下載。</p>
+      <p class="course-desc" id="courseDesc">每堂課的內容、參考與練習，可直接下載。</p>
     </header>
 
     <div class="controls">
@@ -229,8 +237,8 @@
     </table>
 
     <footer class="colophon">
-      <span id="colophonLeft">built/maintained by lsx</span>
-      <span id="colophonRight"></span>
+      <span id="colophonLeft">由家教老師維護</span>
+      <span id="colophonRight">最後更新 2026</span>
     </footer>
   </main>
 
@@ -240,9 +248,9 @@
    ────────────────────────────────────────────────────────── */
 const COURSE = {
   title: "高中社會",
-  desc:  "課程內容、參考與練習，可自行直接下載。",
-  maintainer: "built/maintained by lsx",
-  // updated: "2026 秋季",   // 想顯示「最後更新」就把這行打開並填值
+  desc:  "每堂課的內容、參考與練習，可直接下載。",
+  maintainer: "由家教老師維護",
+  updated:    "最後更新 2026"
 };
 
 /* 資料來源：同一個資料夾裡的 data.json（部署到 GitHub Pages 時一起放上去）。
@@ -250,35 +258,43 @@ const COURSE = {
    讀不到 data.json 時會退回下方的內建範例，方便預覽。 */
 
 /* 每筆 = 一堂課，依陣列順序自動編成 Lec 1、Lec 2…：
+   - date：上課日期（選填），顯示在 Lec 編號下方；留空或不寫就不顯示
    - content：課程內容，項目有 url 會顯示下載箭頭
    - reference：參考章節，顯示在內容下方；有 url 則變連結
    - sheets：練習，有 url 顯示下載箭頭，bracket:true 會用 [ ] 包起來（如解答） */
 const SAMPLE_DATA = [
-  { content:[{ title:"地圖判讀與 GIS 概論（P.1–6）", url:"#" }],
+  { date:"9/2",
+    content:[{ title:"地圖判讀與 GIS 概論（P.1–6）", url:"#" }],
     reference:[{ label:"課本 1-1 地圖要素" }, { label:"1-2 GIS 概論" }],
     sheets:[{ title:"習題 1", url:"#" }, { title:"解答", url:"#", bracket:true }] },
 
-  { content:[{ title:"氣候類型與水文系統（P.7–14）", url:"#" }],
+  { date:"9/4",
+    content:[{ title:"氣候類型與水文系統（P.7–14）", url:"#" }],
     reference:[{ label:"課本 2-1 氣候類型" }, { label:"2-3 水文循環" }],
     sheets:[] },
 
-  { content:[{ title:"台灣史：清領與開港通商（P.15–22）", url:"#" }],
+  { date:"9/9",
+    content:[{ title:"台灣史：清領與開港通商（P.15–22）", url:"#" }],
     reference:[{ label:"課本 3-2 開港通商" }],
     sheets:[{ title:"習題 2", url:"#" }, { title:"解答", url:"#", bracket:true }] },
 
-  { content:[{ title:"世界史：工業革命的影響（P.23–28）", url:"#" }],
+  { date:"9/11",
+    content:[{ title:"世界史：工業革命的影響（P.23–28）", url:"#" }],
     reference:[{ label:"課本 5-1 工業革命" }],
     sheets:[] },
 
-  { content:[{ title:"民主政治與憲政體制（P.29–34）", url:"#" }],
+  { date:"9/16",
+    content:[{ title:"民主政治與憲政體制（P.29–34）", url:"#" }],
     reference:[{ label:"課本 7-1 民主原則" }, { label:"7-2 憲政體制" }],
     sheets:[{ title:"習題 3", url:"#" }] },
 
-  { content:[{ title:"經濟學基礎：供給與需求（P.35–40）", url:"#" }],
+  { date:"9/18",
+    content:[{ title:"經濟學基礎：供給與需求（P.35–40）", url:"#" }],
     reference:[{ label:"課本 8-1 供需法則" }],
     sheets:[] },
 
-  { content:[{ title:"地方政府與公共參與（P.41–48）", url:"#" }],
+  { date:"9/23",
+    content:[{ title:"地方政府與公共參與（P.41–48）", url:"#" }],
     reference:[{ label:"課本 9-1 地方自治" }],
     sheets:[{ title:"習題 4", url:"#" }, { title:"解答", url:"#", bracket:true }] }
 ];
@@ -299,8 +315,8 @@ function applyCourseMeta(){
   document.title = COURSE.title;
   document.getElementById("courseTitle").textContent = COURSE.title;
   document.getElementById("courseDesc").textContent = COURSE.desc;
-  document.getElementById("colophonLeft").textContent = COURSE.maintainer || "";
-  document.getElementById("colophonRight").textContent = COURSE.updated || "";
+  document.getElementById("colophonLeft").textContent = COURSE.maintainer;
+  document.getElementById("colophonRight").textContent = COURSE.updated;
 }
 
 async function loadRows(){
@@ -342,7 +358,7 @@ function sheetsCell(items){
 
 function rowMatches(row){
   if(!searchTerm) return true;
-  const parts = ["Lec " + row._lec];
+  const parts = ["Lec " + row._lec, row.date || ""];
   (row.content||[]).forEach(i => parts.push(i.title));
   (row.reference||[]).forEach(i => parts.push(i.label));
   (row.sheets||[]).forEach(i => parts.push(i.title));
@@ -364,8 +380,9 @@ function render(){
 
   rows.forEach(row => {
     const tr = document.createElement("tr");
+    const dateHtml = row.date ? `<span class="lec-date">${esc(row.date)}</span>` : "";
     tr.innerHTML =
-      `<td class="lec-cell" data-label="Lec">Lec ${row._lec}</td>` +
+      `<td class="lec-cell" data-label="Lec"><span>Lec ${row._lec}</span>${dateHtml}</td>` +
       `<td data-label="課程內容">${contentCell(row.content, row.reference)}</td>` +
       `<td data-label="練習">${sheetsCell(row.sheets)}</td>`;
     tbody.appendChild(tr);

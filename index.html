@@ -54,6 +54,35 @@
     max-width:54ch;
   }
 
+  /* ── 分頁切換 ── */
+  .tabs{
+    display:flex;
+    gap:1.5rem;
+    border-bottom:1px solid var(--border);
+    margin:0 0 1.1rem;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{ display:none; }
+  .tab{
+    appearance:none;
+    background:none;
+    border:0;
+    border-bottom:2px solid transparent;
+    margin-bottom:-1px;
+    padding:.45rem .1rem .55rem;
+    font-family:var(--sans);
+    font-size:.95rem;
+    font-weight:500;
+    color:var(--text-soft);
+    white-space:nowrap;
+    cursor:pointer;
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .tab:hover{ color:var(--text); }
+  .tab[aria-selected="true"]{ color:var(--header); font-weight:700; border-bottom-color:var(--teal); }
+  .tab:focus-visible{ outline:2px solid var(--teal); outline-offset:2px; border-radius:2px; }
+
   .controls{
     display:flex;
     justify-content:flex-end;
@@ -145,6 +174,61 @@
   .empty-state{ padding:2.5rem .8rem; color:var(--text-soft); }
   .empty-state .accent{ color:var(--text); font-weight:500; }
 
+  /* ── 科目講義頁（單元排列）── */
+  .unit-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:.8rem;
+    padding:0 .1rem .5rem;
+    border-bottom:2px solid var(--border-strong);
+    margin-bottom:.1rem;
+  }
+  .unit-head .h{ font-size:.86rem; font-weight:700; color:var(--header); }
+  .unit-head .n{ font-size:.78rem; font-weight:400; color:var(--text-soft); }
+
+  .unit{
+    display:grid;
+    grid-template-columns:13rem 1fr;
+    gap:.5rem 1.4rem;
+    padding:.85rem .1rem;
+    border-bottom:1px solid var(--border);
+  }
+  .unit-no{
+    color:var(--text-soft);
+    font-size:.78rem;
+    font-variant-numeric:tabular-nums;
+    margin-right:.45rem;
+  }
+  .unit-name{
+    font-weight:700;
+    color:var(--header);
+    font-size:.95rem;
+  }
+  .unit-files{
+    display:flex;
+    flex-direction:column;
+    gap:.3rem;
+    font-size:.92rem;
+  }
+  .file-item{ display:flex; gap:.6rem; align-items:baseline; }
+  .file-note{
+    font-size:.8rem;
+    color:var(--text-soft);
+    line-height:1.45;
+    margin-top:.05rem;
+  }
+  .pending{
+    display:inline-block;
+    margin-left:.45rem;
+    padding:.02rem .34rem;
+    border:1px solid var(--border);
+    border-radius:3px;
+    font-size:.7rem;
+    color:var(--text-soft);
+    vertical-align:1px;
+  }
+
   .colophon{
     margin-top:1.6rem;
     font-size:.78rem;
@@ -154,6 +238,8 @@
     flex-wrap:wrap;
     gap:.5rem;
   }
+
+  [hidden]{ display:none !important; }
 
   @media (max-width:720px){
     .schedule thead{ display:none; }
@@ -194,10 +280,13 @@
     }
     .lec-cell::before{ content:""; flex:0; }
     .lec-date{ display:inline; margin-top:0; font-size:.82rem; }
+
+    .unit{ grid-template-columns:1fr; gap:.45rem; }
+    .unit-files{ padding-left:.2rem; }
   }
 
   @media (prefers-reduced-motion:reduce){
-    a.link, .dl, .search input{ transition:none; }
+    a.link, .dl, .search input, .tab{ transition:none; }
     a.link:hover .dl{ transform:none; }
   }
 </style>
@@ -208,6 +297,8 @@
       <h1 class="course-title" id="courseTitle">高中社會</h1>
       <p class="course-desc" id="courseDesc">每堂課的內容、參考與練習，可直接下載。</p>
     </header>
+
+    <div class="tabs" id="tabs" role="tablist" aria-label="頁面切換"></div>
 
     <div class="controls">
       <label class="search">
@@ -220,21 +311,27 @@
       </label>
     </div>
 
-    <table class="schedule">
-      <colgroup>
-        <col style="width:9%">
-        <col style="width:59%">
-        <col style="width:32%">
-      </colgroup>
-      <thead>
-        <tr>
-          <th scope="col">Lec</th>
-          <th scope="col">課程內容</th>
-          <th scope="col">練習</th>
-        </tr>
-      </thead>
-      <tbody id="tbody" aria-live="polite"></tbody>
-    </table>
+    <section id="panel-schedule" role="tabpanel" aria-labelledby="tab-schedule">
+      <table class="schedule">
+        <colgroup>
+          <col style="width:9%">
+          <col style="width:59%">
+          <col style="width:32%">
+        </colgroup>
+        <thead>
+          <tr>
+            <th scope="col">Lec</th>
+            <th scope="col">課程內容</th>
+            <th scope="col">練習</th>
+          </tr>
+        </thead>
+        <tbody id="tbody" aria-live="polite"></tbody>
+      </table>
+    </section>
+
+    <section id="panel-subject" role="tabpanel" hidden>
+      <div id="subjectBody" aria-live="polite"></div>
+    </section>
 
     <footer class="colophon">
       <span id="colophonLeft">由家教老師維護</span>
@@ -253,50 +350,91 @@ const COURSE = {
   updated:    "2026"
 };
 
-/* 資料來源：同一個資料夾裡的 data.json（部署到 GitHub Pages 時一起放上去）。
-   要更新課程，編輯 data.json 即可，這個 HTML 不用動。
-   讀不到 data.json 時會退回下方的內建範例，方便預覽。 */
+/* 科目分頁：id 用英文（會變成網址 #hash），label 是分頁上的字，
+   tag 是 data.json 標題裡 [ ] 的科目名稱。要加科目就在這裡多一筆。 */
+const SUBJECTS = [
+  { id:"geo",   label:"地理", tag:"地理" },
+  { id:"his",   label:"歷史", tag:"歷史" },
+  { id:"civic", label:"公民", tag:"公民" }
+];
+
+/* ── 資料來源（兩份，各自獨立）─────────────────────────────
+   data.json      → 課程進度頁：每堂課上了什麼、發了什麼練習
+   materials.json → 地理/歷史/公民 三個分頁：整套上課講義教材
+   兩份都放在跟這個 HTML 同一個資料夾；更新內容只要改 json，HTML 不用動。
+   讀不到時會退回下方的內建範例，方便本機預覽。
+
+   materials.json 格式：
+   [
+     { "subject": "地理",                        ← 要對到上面 SUBJECTS 的 tag
+       "units": [
+         { "unit": "地形",                        ← 單元名稱，照順序顯示
+           "items": [
+             { "title": "冰河地形",                ← 教材標題
+               "url":   "materials/地形_冰河.pdf", ← 檔案路徑；留空 "" 會顯示「待補」
+               "note":  "含練習題解答" }           ← 備註，可省略
+           ] }
+       ] }
+   ] */
 
 /* 每筆 = 一堂課，依陣列順序自動編成 Lec 1、Lec 2…：
-   - date：上課日期（選填），顯示在 Lec 編號下方；留空或不寫就不顯示
+   - date：上課日期（選填），顯示在 Lec 編號下方
    - content：課程內容，項目有 url 會顯示下載箭頭
+     ↳ 標題開頭寫 [歷史] / [地理] / [公民]，就會自動進到對應的科目分頁
    - reference：參考章節，顯示在內容下方；有 url 則變連結
    - sheets：練習，有 url 顯示下載箭頭，bracket:true 會用 [ ] 包起來（如解答） */
 const SAMPLE_DATA = [
   { date:"9/2",
-    content:[{ title:"地圖判讀與 GIS 概論（P.1–6）", url:"#" }],
+    content:[{ title:"[地理] 地圖概念（P.1–6）", url:"#" }],
     reference:[{ label:"課本 1-1 地圖要素" }, { label:"1-2 GIS 概論" }],
     sheets:[{ title:"習題 1", url:"#" }, { title:"解答", url:"#", bracket:true }] },
 
   { date:"9/4",
-    content:[{ title:"氣候類型與水文系統（P.7–14）", url:"#" }],
+    content:[{ title:"[地理] 氣候系統（P.7–14）", url:"#" }],
     reference:[{ label:"課本 2-1 氣候類型" }, { label:"2-3 水文循環" }],
     sheets:[] },
 
   { date:"9/9",
-    content:[{ title:"台灣史：清領與開港通商（P.15–22）", url:"#" }],
+    content:[{ title:"[歷史] 臺灣移民史（P.15–22）", url:"#" }],
     reference:[{ label:"課本 3-2 開港通商" }],
     sheets:[{ title:"習題 2", url:"#" }, { title:"解答", url:"#", bracket:true }] },
 
   { date:"9/11",
-    content:[{ title:"世界史：工業革命的影響（P.23–28）", url:"#" }],
+    content:[{ title:"[歷史] 臺灣的現代化進程（P.23–28）", url:"#" }],
     reference:[{ label:"課本 5-1 工業革命" }],
     sheets:[] },
 
   { date:"9/16",
-    content:[{ title:"民主政治與憲政體制（P.29–34）", url:"#" }],
+    content:[{ title:"[公民] 政府體制與運作（P.29–34）", url:"#" }],
     reference:[{ label:"課本 7-1 民主原則" }, { label:"7-2 憲政體制" }],
     sheets:[{ title:"習題 3", url:"#" }] },
 
   { date:"9/18",
-    content:[{ title:"經濟學基礎：供給與需求（P.35–40）", url:"#" }],
+    content:[{ title:"[公民] 勞動參與、社會安全制度（P.35–40）", url:"#" }],
     reference:[{ label:"課本 8-1 供需法則" }],
     sheets:[] },
 
   { date:"9/23",
-    content:[{ title:"地方政府與公共參與（P.41–48）", url:"#" }],
+    content:[{ title:"[公民] 媒體與公共意見（P.41–48）", url:"#" }],
     reference:[{ label:"課本 9-1 地方自治" }],
     sheets:[{ title:"習題 4", url:"#" }, { title:"解答", url:"#", bracket:true }] }
+];
+
+/* materials.json 讀不到時的內建範例 */
+const SAMPLE_MATERIALS = [
+  { subject:"地理", units:[
+    { unit:"地形", items:[
+      { title:"內營力與外營力", url:"#", note:"" },
+      { title:"河流地形",       url:"",  note:"整理中" }
+    ] },
+    { unit:"氣候系統", items:[ { title:"氣候系統 講義", url:"#", note:"" } ] }
+  ] },
+  { subject:"歷史", units:[
+    { unit:"臺灣移民史", items:[ { title:"臺灣移民史 講義", url:"#", note:"" } ] }
+  ] },
+  { subject:"公民", units:[
+    { unit:"國家組成與認同", items:[ { title:"國家組成與認同 講義", url:"#", note:"" } ] }
+  ] }
 ];
 
 /* ──────────────────────────────────────────────────────────
@@ -305,10 +443,19 @@ const SAMPLE_DATA = [
 const ICON_DL = '<span class="dl" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.5v8"/><path d="M4.5 7L8 10.5 11.5 7"/><path d="M2.8 13.2h10.4"/></svg></span>';
 
 let allRows = [];
+let allMaterials = [];
 let searchTerm = "";
+let activeTab = "schedule";   // "schedule" 或 SUBJECTS 裡的 id
 
 function esc(s){
   return String(s ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;" }[c]));
+}
+
+/* "20260701" → "7/1"；其他格式原樣輸出（只用在科目分頁） */
+function fmtDate(d){
+  const s = String(d ?? "").trim();
+  const m = s.match(/^(\d{4})(\d{2})(\d{2})$/);
+  return m ? `${Number(m[2])}/${Number(m[3])}` : s;
 }
 
 function applyCourseMeta(){
@@ -319,22 +466,24 @@ function applyCourseMeta(){
   document.getElementById("colophonRight").textContent = COURSE.updated;
 }
 
-async function loadRows(){
+async function loadJson(file, fallback){
   try{
-    const res = await fetch("data.json", { cache:"no-store" });
+    const res = await fetch(file, { cache:"no-store" });
     if(!res.ok) throw new Error("HTTP "+res.status);
     const data = await res.json();
-    return Array.isArray(data) ? data : SAMPLE_DATA;
+    return Array.isArray(data) ? data : fallback;
   }catch(err){
-    console.warn("讀取 data.json 失敗，改用內建範例：", err);
-    return SAMPLE_DATA;
+    console.warn(`讀取 ${file} 失敗，改用內建範例：`, err);
+    return fallback;
   }
 }
 
-function downloadLink(item){
+function downloadLink(item, label){
   const dl = (item.url && item.url !== "#") ? ' download' : '';
-  return `<a class="link" href="${esc(item.url || "#")}"${dl}>${esc(item.title)}${ICON_DL}</a>`;
+  return `<a class="link" href="${esc(item.url || "#")}"${dl}>${esc(label ?? item.title)}${ICON_DL}</a>`;
 }
+
+/* ── 分頁 1：課程進度（維持原本行為，未更動）───────────── */
 
 function contentCell(content, reference){
   let html = (content||[]).map(i => `<div class="cell-item">${downloadLink(i)}</div>`).join("");
@@ -365,7 +514,7 @@ function rowMatches(row){
   return parts.join(" ").toLowerCase().includes(searchTerm.toLowerCase());
 }
 
-function render(){
+function renderSchedule(){
   const tbody = document.getElementById("tbody");
   const numbered = allRows.map((row, i) => Object.assign({}, row, { _lec: i + 1 }));
   const rows = numbered.filter(rowMatches);
@@ -389,16 +538,109 @@ function render(){
   });
 }
 
+/* ── 分頁 2~4：地理 / 歷史 / 公民（來源 materials.json）── */
+
+function itemMatches(unit, item){
+  if(!searchTerm) return true;
+  const hay = [unit, item.title, item.note].join(" ").toLowerCase();
+  return hay.includes(searchTerm.toLowerCase());
+}
+
+function materialItem(item){
+  const title = String(item.title || "").trim() || "（未命名）";
+  const note  = String(item.note  || "").trim();
+  const hasUrl = item.url && String(item.url).trim();
+  const head = hasUrl
+    ? downloadLink({ url:item.url }, title)
+    : `<span class="muted">${esc(title)}</span><span class="pending">待補</span>`;
+  return `<div class="file-item">
+            <div>${head}${ note ? `<div class="file-note">${esc(note)}</div>` : "" }</div>
+          </div>`;
+}
+
+function renderSubject(id){
+  const sub  = SUBJECTS.find(s => s.id === id);
+  const host = document.getElementById("subjectBody");
+  if(!sub){ host.innerHTML = ""; return; }
+
+  const entry = allMaterials.find(m => m.subject === sub.tag) || { units: [] };
+  const units = (entry.units || [])
+    .map(u => ({ unit:u.unit, items:(u.items || []).filter(it => itemMatches(u.unit, it)) }))
+    .filter(u => u.items.length);
+
+  if(!units.length){
+    host.innerHTML = searchTerm
+      ? `<div class="empty-state">找不到「<span class="accent">${esc(searchTerm)}</span>」相關的${esc(sub.label)}教材。換個關鍵字試試。</div>`
+      : `<div class="empty-state">${esc(sub.label)}目前還沒有教材，到 <span class="accent">materials.json</span> 補上就會出現。</div>`;
+    return;
+  }
+
+  const total = units.reduce((n, u) => n + u.items.length, 0);
+  const body = units.map((u, i) => `
+    <div class="unit">
+      <div class="unit-name"><span class="unit-no">${String(i+1).padStart(2,"0")}</span>${esc(u.unit)}</div>
+      <div class="unit-files">${u.items.map(materialItem).join("")}</div>
+    </div>`).join("");
+
+  host.innerHTML =
+    `<div class="unit-head"><span class="h">${esc(sub.label)}　上課講義教材</span>` +
+    `<span class="n">${units.length} 單元・${total} 份</span></div>` + body;
+}
+
+/* ── 分頁切換 ──────────────────────────────────────────── */
+
+function buildTabs(){
+  const tabs = document.getElementById("tabs");
+  const all = [{ id:"schedule", label:"課程進度" }].concat(SUBJECTS);
+  tabs.innerHTML = all.map(t =>
+    `<button class="tab" id="tab-${t.id}" role="tab" type="button" data-tab="${t.id}"
+             aria-selected="false" aria-controls="${t.id === "schedule" ? "panel-schedule" : "panel-subject"}">${esc(t.label)}</button>`
+  ).join("");
+  tabs.querySelectorAll(".tab").forEach(btn => {
+    btn.addEventListener("click", () => setTab(btn.dataset.tab, true));
+  });
+}
+
+function setTab(name, push){
+  const valid = name === "schedule" || SUBJECTS.some(s => s.id === name);
+  activeTab = valid ? name : "schedule";
+
+  document.querySelectorAll(".tab").forEach(btn => {
+    btn.setAttribute("aria-selected", btn.dataset.tab === activeTab ? "true" : "false");
+  });
+  const isSchedule = activeTab === "schedule";
+  document.getElementById("panel-schedule").hidden = !isSchedule;
+  document.getElementById("panel-subject").hidden  = isSchedule;
+  document.getElementById("panel-subject").setAttribute("aria-labelledby", "tab-" + activeTab);
+  document.getElementById("search").placeholder = isSchedule ? "搜尋課次或主題…" : "搜尋單元或教材…";
+
+  if(push && location.hash.slice(1) !== activeTab){
+    history.replaceState(null, "", "#" + activeTab);
+  }
+  render();
+}
+
+function render(){
+  if(activeTab === "schedule") renderSchedule();
+  else renderSubject(activeTab);
+}
+
 document.getElementById("search").addEventListener("input", e => {
   searchTerm = e.target.value.trim();
   render();
 });
 
+window.addEventListener("hashchange", () => setTab(location.hash.slice(1), false));
+
 (async function init(){
   applyCourseMeta();
+  buildTabs();
   document.getElementById("tbody").innerHTML = '<tr><td colspan="3" class="empty-state">載入課程中…</td></tr>';
-  allRows = await loadRows();
-  render();
+  [allRows, allMaterials] = await Promise.all([
+    loadJson("data.json", SAMPLE_DATA),
+    loadJson("materials.json", SAMPLE_MATERIALS)
+  ]);
+  setTab(location.hash.slice(1) || "schedule", false);
 })();
 </script>
 </body>

@@ -37,7 +37,17 @@
         "items": [
           {
             "title": "link",
-            "url": "files/地理單元11_臺灣的自然與人文_重點筆記_2.pdf",
+            "url": "files/地理單元11_世界舞臺中的臺灣_重點筆記.pdf",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "unit": "東亞",
+        "items": [
+          {
+            "title": "link",
+            "url": "files/地理單元12_東亞文化圈_重點筆記_1.pdf",
             "note": ""
           }
         ]
@@ -53,6 +63,16 @@
           {
             "title": "link",
             "url": "files/歷史第4單元_國家與社會_重點筆記_1.pdf",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "unit": "東亞 - 人群的移動與交流",
+        "items": [
+          {
+            "title": "link",
+            "url": "files/歷史第5單元_人群的移動與交流_重點筆記.pdf",
             "note": ""
           }
         ]

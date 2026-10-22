@@ -295,7 +295,7 @@
   <main class="wrap">
     <header>
       <h1 class="course-title" id="courseTitle">高中社會</h1>
-      <p class="course-desc" id="courseDesc">每堂課的內容、參考與練習，可直接下載。</p>
+      <p class="course-desc" id="courseDesc">地理、歷史、公民各科的重點筆記，可直接下載。</p>
     </header>
 
     <div class="tabs" id="tabs" role="tablist" aria-label="頁面切換"></div>
@@ -311,7 +311,7 @@
       </label>
     </div>
 
-    <section id="panel-schedule" role="tabpanel" aria-labelledby="tab-schedule">
+    <section id="panel-schedule" role="tabpanel" aria-labelledby="tab-schedule" hidden>
       <table class="schedule">
         <colgroup>
           <col style="width:9%">
@@ -345,10 +345,13 @@
    ────────────────────────────────────────────────────────── */
 const COURSE = {
   title: "高中社會",
-  desc:  "每堂課的內容、參考與練習，可直接下載。",
+  desc:  "地理、歷史、公民各科的重點筆記，可直接下載。",
   maintainer: "built by lsx",
   updated:    "2026"
 };
+
+/* 課程進度分頁（讀 data.json）：true 顯示、false 隱藏 */
+const SHOW_SCHEDULE = false;
 
 /* 科目分頁：id 用英文（會變成網址 #hash），label 是分頁上的字，
    tag 是 data.json 標題裡 [ ] 的科目名稱。要加科目就在這裡多一筆。 */
@@ -591,7 +594,7 @@ function renderSubject(id){
 
 function buildTabs(){
   const tabs = document.getElementById("tabs");
-  const all = [{ id:"schedule", label:"課程進度" }].concat(SUBJECTS);
+  const all = (SHOW_SCHEDULE ? [{ id:"schedule", label:"課程進度" }] : []).concat(SUBJECTS);
   tabs.innerHTML = all.map(t =>
     `<button class="tab" id="tab-${t.id}" role="tab" type="button" data-tab="${t.id}"
              aria-selected="false" aria-controls="${t.id === "schedule" ? "panel-schedule" : "panel-subject"}">${esc(t.label)}</button>`
@@ -602,8 +605,9 @@ function buildTabs(){
 }
 
 function setTab(name, push){
-  const valid = name === "schedule" || SUBJECTS.some(s => s.id === name);
-  activeTab = valid ? name : "schedule";
+  const home = SHOW_SCHEDULE ? "schedule" : SUBJECTS[0].id;
+  const valid = (SHOW_SCHEDULE && name === "schedule") || SUBJECTS.some(s => s.id === name);
+  activeTab = valid ? name : home;
 
   document.querySelectorAll(".tab").forEach(btn => {
     btn.setAttribute("aria-selected", btn.dataset.tab === activeTab ? "true" : "false");
@@ -637,10 +641,10 @@ window.addEventListener("hashchange", () => setTab(location.hash.slice(1), false
   buildTabs();
   document.getElementById("tbody").innerHTML = '<tr><td colspan="3" class="empty-state">載入課程中…</td></tr>';
   [allRows, allMaterials] = await Promise.all([
-    loadJson("data.json", SAMPLE_DATA),
+    SHOW_SCHEDULE ? loadJson("data.json", SAMPLE_DATA) : Promise.resolve([]),
     loadJson("materials.json", SAMPLE_MATERIALS)
   ]);
-  setTab(location.hash.slice(1) || "schedule", false);
+  setTab(location.hash.slice(1) || (SHOW_SCHEDULE ? "schedule" : SUBJECTS[0].id), false);
 })();
 </script>
 </body>

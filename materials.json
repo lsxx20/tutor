@@ -51,6 +51,96 @@
             "note": ""
           }
         ]
+      },
+      {
+        "unit": "東南亞",
+        "items": [
+          {
+            "title": "link",
+            "url": "files/單元13A_東南亞_重點筆記 (1).pdf",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "unit": "南亞",
+        "items": [
+          {
+            "title": "link",
+            "url": "files/單元13B_南亞_重點筆記 (1).pdf",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "unit": "澳紐",
+        "items": [
+          {
+            "title": "link",
+            "url": "files/單元14_澳紐_重點筆記.pdf",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "unit": "西亞北非",
+        "items": [
+          {
+            "title": "link",
+            "url": "files/單元15_西亞北非_重點筆記.pdf",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "unit": "歐洲",
+        "items": [
+          {
+            "title": "link",
+            "url": "files/單元16_歐洲_重點筆記 (2).pdf",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "unit": "北美洲",
+        "items": [
+          {
+            "title": "link",
+            "url": "files/單元17_美國_重點筆記.pdf",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "unit": "中南美洲",
+        "items": [
+          {
+            "title": "link",
+            "url": "files/單元18A_中南美洲_重點筆記.pdf",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "unit": "漠南非洲",
+        "items": [
+          {
+            "title": "link",
+            "url": "files/單元18B_漠南非洲_重點筆記.pdf",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "unit": "全球化",
+        "items": [
+          {
+            "title": "link",
+            "url": "files/單元19_全球化_重點筆記.pdf",
+            "note": ""
+          }
+        ]
       }
     ]
   },

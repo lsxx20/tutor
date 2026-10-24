@@ -239,6 +239,148 @@
     gap:.5rem;
   }
 
+  /* ── 練習分頁（配色比照重點筆記：深藍 #2b5c86）── */
+  #panel-practice{
+    --ink:#1f2a35; --acc:#2b5c86; --acc-dark:#1f4669; --rule:#c9d6e2; --line:#dde3e9;
+    --soft:#f1f5f9; --soft-2:#e8eef4; --muted:#6b7580; --ng:#b5473a; --ng-soft:#f9eeec;
+    color:var(--ink);
+  }
+  .pr-head{ display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:.8rem 1rem;
+            padding-bottom:.7rem; margin-bottom:1.2rem; border-bottom:2px solid var(--acc); }
+  .pr-kicker{ font-size:.78rem; color:var(--muted); letter-spacing:.04em; }
+  .pr-h{ font-size:1.3rem; font-weight:700; margin:.1rem 0 0; letter-spacing:.02em; }
+  .pr-unit{ font:inherit; font-size:.85rem; color:var(--ink); border:1px solid var(--rule); border-radius:5px; padding:.3rem .5rem; background:#fff; }
+  .seg{ display:inline-flex; border:1px solid var(--rule); border-radius:6px; overflow:hidden; }
+  .seg button{ appearance:none; border:0; border-left:1px solid var(--rule); background:#fff; font:inherit; font-size:.85rem;
+               color:var(--muted); padding:.42rem .95rem; cursor:pointer; }
+  .seg button:first-child{ border-left:0; }
+  .seg button:hover{ color:var(--acc); }
+  .seg button[aria-selected="true"]{ background:var(--acc); color:#fff; font-weight:500; }
+
+  .pbtn{ appearance:none; font:inherit; font-size:.9rem; font-weight:500; border:1px solid var(--acc); background:var(--acc); color:#fff;
+         border-radius:6px; padding:.55rem 1.25rem; min-height:2.5rem; cursor:pointer; }
+  .pbtn:hover{ background:var(--acc-dark); border-color:var(--acc-dark); }
+  .pbtn:disabled{ background:#c9d3dc; border-color:#c9d3dc; cursor:not-allowed; }
+  .pbtn.ghost{ background:#fff; color:var(--acc); }
+  .pbtn.ghost:hover{ background:var(--soft); }
+  .plink{ appearance:none; border:0; background:none; font:inherit; font-size:.85rem; color:var(--acc); cursor:pointer; padding:0; }
+  .plink:hover{ text-decoration:underline; text-underline-offset:2px; }
+  #panel-practice :focus-visible{ outline:2px solid var(--acc); outline-offset:2px; }
+
+  /* 題組列表 */
+  .set-card{ display:grid; grid-template-columns:1fr auto; align-items:center; gap:.2rem 1.2rem; background:#fff;
+             border:1px solid var(--rule); border-left:4px solid var(--acc); border-radius:4px; padding:1rem 1.2rem; margin-bottom:.8rem; }
+  .set-card .lb{ font-size:.75rem; font-weight:700; color:var(--acc); letter-spacing:.06em; }
+  .set-card .tt{ font-size:1.08rem; font-weight:700; }
+  .set-card .mt{ font-size:.82rem; color:var(--muted); }
+  .set-card .pbtn{ grid-row:1 / span 3; grid-column:2; }
+
+  /* 作答畫面 */
+  .ex-top{ display:flex; align-items:center; flex-wrap:wrap; gap:.6rem 1rem; margin-bottom:1.1rem; }
+  .ex-title{ font-weight:700; }
+  .ex-title span{ color:var(--acc); margin-right:.5rem; }
+  .ex-prog{ display:flex; align-items:center; gap:5px; margin-left:auto; font-size:.8rem; color:var(--muted); }
+  .ex-prog i{ display:block; width:30px; height:5px; border-radius:3px; background:var(--line); }
+  .ex-prog i.cur{ background:#8fb0cc; }
+  .ex-prog i.ok{ background:var(--acc); }
+  .ex-prog i.ng{ background:var(--ng); }
+  .ex-prog b{ margin-left:.4rem; font-weight:500; color:var(--ink); font-variant-numeric:tabular-nums; }
+  .ex-grid{ display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); gap:1.8rem; align-items:start; }
+  .ex-stem > summary{ display:none; }
+  .ex-title .org{ font-style:normal; font-weight:400; font-size:.75rem; color:var(--muted); border:1px solid var(--rule); border-radius:3px; padding:0 .35rem; margin-left:.5rem; vertical-align:1px; }
+  .ex-intro{ font-size:.92rem; line-height:1.8; margin:0 0 .9rem; }
+  .ex-fig{ margin:0 0 1rem; }
+  .ex-fig svg{ display:block; width:100%; height:auto; }
+  .ex-fig figcaption{ text-align:center; font-size:.82rem; font-weight:500; margin-top:.35rem; }
+  .fig-grid{ display:grid; grid-template-columns:1fr 1fr; gap:.4rem .8rem; }
+  .ex-fig > figcaption:first-child{ margin:0 0 .4rem; }
+  .ex-table{ width:100%; border-collapse:collapse; font-size:.86rem; font-variant-numeric:tabular-nums; }
+  .ex-table th{ background:var(--soft-2); font-weight:700; padding:.38rem .5rem; border:1px solid var(--rule); }
+  .ex-tablewrap{ overflow-x:auto; }
+  .ex-table td{ padding:.36rem .45rem; border:1px solid var(--rule); text-align:center; word-break:keep-all; }   /* 州名不拆開，只在州名和數字之間換行 */
+  .ex-table td:first-child{ color:var(--muted); }
+  .ex-src{ font-size:.75rem; line-height:1.6; color:var(--muted); border-top:1px solid var(--line); padding-top:.5rem; }
+
+  .ex-q .qn{ display:inline-flex; align-items:center; justify-content:center; width:1.9rem; height:1.9rem; border-radius:50%;
+             background:var(--acc); color:#fff; font-weight:700; font-size:.92rem; }
+  .ex-q .qs{ font-size:1.02rem; font-weight:500; line-height:1.8; margin:.6rem 0 .9rem; }
+  .ex-data{ background:var(--soft); border-left:3px solid var(--acc); padding:.65rem .85rem; margin:0 0 1rem; font-size:.88rem; line-height:1.75; }
+  .ex-data b{ display:block; color:var(--acc); font-size:.8rem; margin-bottom:.1rem; }
+  .opt{ appearance:none; display:grid; grid-template-columns:2.1rem 1fr; gap:.15rem .3rem; width:100%; text-align:left;
+        font:inherit; font-size:.93rem; line-height:1.65; color:var(--ink); background:#fff; border:1px solid var(--rule);
+        border-radius:6px; padding:.65rem .85rem; margin:0 0 .55rem; cursor:pointer; transition:border-color .12s, background .12s; }
+  .opt .k{ font-weight:700; color:var(--acc); }
+  .opt:hover:not([disabled]){ border-color:var(--acc); background:#fafcfd; }
+  .opt[aria-pressed="true"]{ border-color:var(--acc); background:var(--soft); box-shadow:inset 0 0 0 1px var(--acc); }
+  .opt[disabled]{ cursor:default; }
+  .opt.right{ border-color:var(--acc); background:var(--soft-2); box-shadow:inset 0 0 0 1px var(--acc); }
+  .opt.wrong{ border-color:var(--ng); background:var(--ng-soft); box-shadow:inset 0 0 0 1px var(--ng); }
+  .opt.wrong .k{ color:var(--ng); }
+  .opt .tag{ display:inline-block; font-size:.72rem; font-weight:700; margin-left:.45rem; padding:0 .4rem; border-radius:3px; color:#fff; background:var(--acc); vertical-align:1px; }
+  .opt.wrong .tag{ background:var(--ng); }
+  .opt .why{ grid-column:2; font-size:.84rem; line-height:1.7; color:#3d4954; border-top:1px dashed var(--rule); padding-top:.35rem; margin-top:.3rem; }
+  .verdict{ font-weight:700; margin:.2rem 0 .5rem; }
+  .verdict.ok{ color:var(--acc); }
+  .verdict.ng{ color:var(--ng); }
+  .pnote{ background:var(--soft); border-left:3px solid var(--acc); padding:.65rem .85rem; margin:.9rem 0 0; font-size:.88rem; line-height:1.75; }
+  .pnote .nt{ font-weight:700; color:var(--acc); margin-bottom:.1rem; }
+  .pnote .src{ display:block; margin-top:.35rem; font-size:.78rem; color:var(--muted); }
+  .ex-actions{ display:flex; justify-content:space-between; align-items:center; gap:.6rem; margin-top:1rem; }
+  .ex-hint{ font-size:.75rem; color:var(--muted); }
+
+  /* 成績單 */
+  .score{ border:1px solid var(--rule); border-top:4px solid var(--acc); border-radius:4px; padding:1.4rem 1.4rem 1.2rem; max-width:40rem; }
+  .score .big{ font-size:2.4rem; font-weight:700; color:var(--acc); line-height:1.1; font-variant-numeric:tabular-nums; }
+  .score .big small{ font-size:1rem; color:var(--muted); font-weight:500; margin-left:.3rem; }
+  .score ol{ list-style:none; padding:0; margin:1rem 0; border-top:1px solid var(--line); }
+  .score li{ display:grid; grid-template-columns:1.6rem 1fr auto; gap:.6rem; align-items:baseline; padding:.6rem 0; border-bottom:1px solid var(--line); font-size:.9rem; }
+  .score li .m{ font-weight:700; color:var(--acc); }
+  .score li .m.ng{ color:var(--ng); }
+  .score .row{ display:flex; gap:.6rem; flex-wrap:wrap; }
+
+  /* 閃卡 */
+  .fc{ max-width:40rem; }
+  .fc-bar{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.5rem; font-size:.85rem; color:var(--muted); margin-bottom:.7rem; }
+  .fc-bar b{ color:var(--ink); font-weight:500; }
+  .fc-bar label{ display:flex; align-items:center; gap:.35rem; cursor:pointer; }
+  .flash{ display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; min-height:13rem;
+          border:1px solid var(--rule); border-top:4px solid var(--acc); border-radius:4px; background:#fff; padding:1.6rem 1.4rem; cursor:pointer; user-select:none; }
+  .flash .side{ font-size:.72rem; font-weight:700; color:var(--acc); letter-spacing:.12em; margin-bottom:.6rem; }
+  .flash .front{ font-size:1.4rem; font-weight:700; }
+  .flash .back{ font-size:.98rem; line-height:1.85; max-width:34em; }
+  .flash .hint{ margin-top:.9rem; font-size:.78rem; color:var(--muted); }
+  .fc-actions{ display:grid; grid-template-columns:repeat(4,1fr); gap:.5rem; margin-top:.8rem; }
+  .fc-actions .pbtn{ padding:.5rem .4rem; }
+
+  /* 時事 */
+  .nw{ display:grid; grid-template-columns:6.5rem 1fr; gap:.2rem 1.2rem; padding:1rem 0; border-bottom:1px solid var(--line); }
+  .nw .d{ font-size:.8rem; font-weight:700; color:var(--acc); font-variant-numeric:tabular-nums; padding-top:.15rem; }
+  .nw .t{ font-weight:700; font-size:1rem; margin-bottom:.25rem; }
+  .nw .s{ font-size:.9rem; line-height:1.75; }
+  .nw .pnote{ margin-top:.6rem; }
+  .nw .src{ font-size:.78rem; color:var(--muted); margin-top:.4rem; }
+
+  @media (max-width:860px){
+    .ex-grid{ grid-template-columns:minmax(0,1fr); gap:1rem; }
+    .ex-stem{ border:1px solid var(--rule); border-radius:6px; padding:0 .9rem; }
+    .ex-stem[open]{ padding-bottom:.8rem; }
+    .ex-stem > summary{ display:block; cursor:pointer; list-style:none; padding:.7rem 0; font-size:.88rem; font-weight:700; color:var(--acc); }
+    .ex-stem > summary::-webkit-details-marker{ display:none; }
+    .ex-stem > summary::before{ content:"▸"; display:inline-block; width:1.1em; transition:transform .15s; }
+    .ex-stem[open] > summary::before{ transform:rotate(90deg); }
+    .ex-hint{ display:none; }
+  }
+  @media (max-width:560px){
+    .ex-table{ font-size:.78rem; }
+    .ex-table th, .ex-table td{ padding:.3rem .3rem; }
+    .pr-head{ align-items:flex-start; }
+    .ex-prog{ margin-left:0; }
+    .set-card{ grid-template-columns:1fr; }
+    .set-card .pbtn{ grid-row:auto; grid-column:1; margin-top:.6rem; }
+    .fc-actions{ grid-template-columns:1fr 1fr; }
+    .nw{ grid-template-columns:1fr; }
+  }
+
   [hidden]{ display:none !important; }
 
   @media (max-width:720px){
@@ -300,7 +442,7 @@
 
     <div class="tabs" id="tabs" role="tablist" aria-label="頁面切換"></div>
 
-    <div class="controls">
+    <div class="controls" id="controls">
       <label class="search">
         <span class="glass" aria-hidden="true">
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
@@ -333,6 +475,10 @@
       <div id="subjectBody" aria-live="polite"></div>
     </section>
 
+    <section id="panel-practice" role="tabpanel" aria-labelledby="tab-practice" hidden>
+      <div id="practiceBody"></div>
+    </section>
+
     <footer class="colophon">
       <span id="colophonLeft">由家教老師維護</span>
       <span id="colophonRight">最後更新 2026</span>
@@ -352,6 +498,9 @@ const COURSE = {
 
 /* 課程進度分頁（讀 data.json）：true 顯示、false 隱藏 */
 const SHOW_SCHEDULE = false;
+
+/* 練習分頁（讀 quiz/index.json）：true 顯示、false 隱藏 */
+const SHOW_PRACTICE = true;
 
 /* 科目分頁：id 用英文（會變成網址 #hash），label 是分頁上的字，
    tag 是 data.json 標題裡 [ ] 的科目名稱。要加科目就在這裡多一筆。 */
@@ -590,14 +739,251 @@ function renderSubject(id){
     `<span class="n">${units.length} 單元・${total} 份</span></div>` + body;
 }
 
+/* ── 分頁：練習（quiz/index.json 列出單元 → 各單元 quiz/xxx.json）──
+   單元 JSON 格式（三個區塊都可省略，省略的就不顯示）：
+   { "unit":"單元17 美國", "notes":"files/xxx.pdf",
+     "sets":[ { "label":"題組一", "origin":"自編（或：改寫自 112 學測第 40 題）", "title":"題組名稱", "intro":"題幹說明", "src":"資料來源",
+                "figs":[ { "src":"quiz/x.svg", "cap":"圖 1　…" }, { "grid":["a.svg","b.svg"], "cap":"圖 2　…" },
+                         { "table":{ "head":["",""], "rows":[["",""]] }, "cap":"表 1　…" } ],
+                "qs":[ { "q":"題目", "data":"題目附的資料（可省）", "options":["","","",""], "answer":0,
+                         "why":["A 的說明","B","C","D"], "key":"相關重點", "page":2, "sources":[{ "name":"", "url":"" }] } ] } ],
+     "cards":[ { "id":"c1", "front":"名詞", "back":"解釋", "page":1 } ],
+     "news":[ { "date":"2026-07-01", "title":"", "summary":"", "link":"對應筆記哪一段", "source":{ "name":"", "url":"" } } ] } */
+
+const PR = { units:null, unitId:null, data:{}, svg:{}, mode:"sets", set:null, qi:0, sel:null, stemOpen:true, ans:{}, cards:{ i:0, onlyWeak:false, flipped:false } };
+const PR_MODES = [ ["sets","題組練習"], ["cards","閃卡"], ["news","時事連結"] ];
+const ABCD = "ABCD";
+
+function prStore(key, val){            // 閃卡進度存在學生自己的瀏覽器；讀寫失敗就當作沒存
+  try{
+    if(val === undefined) return JSON.parse(localStorage.getItem(key) || "null");
+    localStorage.setItem(key, JSON.stringify(val));
+  }catch(e){ return null; }
+}
+function prNotesLink(d, page){
+  return d.notes && page ? `<a class="link" href="${esc(d.notes)}#page=${page}" target="_blank" rel="noopener">看筆記第 ${page} 頁</a>` : "";
+}
+async function prSvg(src){              // 圖直接嵌進頁面，文字才會用網站字型；讀過就留在 PR.svg
+  if(!(src in PR.svg)){
+    try{
+      const res = await fetch(src, { cache:"no-cache" });   // 圖更新後學生會拿到新版
+      if(!res.ok) throw new Error("HTTP " + res.status);
+      PR.svg[src] = await res.text();
+    }catch(e){ PR.svg[src] = `<p class="muted">讀不到圖 ${esc(src)}</p>`; }
+  }
+}
+const PR_WIDE = matchMedia("(min-width:861px)");   // 跟 CSS 的 860px 斷點一致
+const prWide = () => PR_WIDE.matches;
+PR_WIDE.addEventListener("change", e => {            // 平板轉成橫向時，收合的題幹要重新展開
+  const stem = document.getElementById("exStem");
+  if(stem && e.matches) stem.open = true;
+});
+const prFigSrcs = s => (s.figs || []).flatMap(f => f.grid || (f.src ? [f.src] : []));
+
+async function renderPractice(){
+  const host = document.getElementById("practiceBody");
+  if(!PR.units){
+    host.innerHTML = '<div class="empty-state">載入練習中…</div>';
+    PR.units = await loadJson("quiz/index.json", []);
+    if(!PR.units.length){ host.innerHTML = '<div class="empty-state">目前還沒有練習，到 <span class="accent">quiz/index.json</span> 補上就會出現。</div>'; return; }
+    PR.unitId = PR.units[0].id;
+  }
+  const meta = PR.units.find(u => u.id === PR.unitId);
+  if(!PR.data[PR.unitId]){
+    try{ PR.data[PR.unitId] = await (await fetch(meta.file, { cache:"no-store" })).json(); }
+    catch(e){ host.innerHTML = `<div class="empty-state">讀不到 ${esc(meta.file)}。</div>`; return; }
+  }
+  const d = PR.data[PR.unitId];
+  const modes = PR_MODES.filter(([k]) => d[k] && d[k].length);
+  if(!modes.length){ host.innerHTML = '<div class="empty-state">這個單元還沒有練習內容。</div>'; return; }
+  if(!modes.some(([k]) => k === PR.mode)) PR.mode = modes[0][0];
+
+  const unitPick = PR.units.length > 1
+    ? `<select class="pr-unit" id="prUnit" aria-label="選擇單元">${PR.units.map(u => `<option value="${esc(u.id)}"${u.id === PR.unitId ? " selected" : ""}>${esc(u.subject)}｜${esc(u.label)}</option>`).join("")}</select>`
+    : `<div class="pr-kicker">${esc(meta.subject)}｜${esc(meta.label)}</div>`;
+  host.innerHTML =
+    `<div class="pr-head"><div>${unitPick}<h2 class="pr-h">練習</h2></div>` +
+    `<div class="seg" role="tablist">${modes.map(([k, l]) => `<button type="button" role="tab" data-mode="${k}" aria-selected="${k === PR.mode}">${l}</button>`).join("")}</div></div>` +
+    `<div id="prBody"></div>`;
+  host.querySelectorAll("[data-mode]").forEach(b => b.onclick = () => { PR.mode = b.dataset.mode; PR.set = null; renderPractice(); });
+  const pick = document.getElementById("prUnit");
+  if(pick) pick.onchange = () => { PR.unitId = pick.value; PR.set = null; PR.cards.i = 0; renderPractice(); };
+
+  const body = document.getElementById("prBody");
+  if(PR.mode === "sets") (PR.set === null ? prSetList : prExam)(body, d);
+  else if(PR.mode === "cards") prCards(body, d);
+  else prNews(body, d);
+}
+
+/* 題組：列表 → 一次一題作答 → 成績單 */
+function prAns(s){ return PR.ans[PR.unitId + "/" + s.id] || (PR.ans[PR.unitId + "/" + s.id] = []); }
+function prRight(s){ return prAns(s).filter((a, i) => a === s.qs[i].answer).length; }
+async function prOpen(i, d){            // 先把題組的圖都讀好，之後換題、選答都不必等
+  const s = d.sets[i], ans = prAns(s);
+  await Promise.all(prFigSrcs(s).map(prSvg));
+  PR.set = i; PR.sel = null; PR.stemOpen = true;
+  PR.qi = ans.length < s.qs.length ? ans.length : s.qs.length;   // 接著做；做完就看成績單
+  renderPractice(); window.scrollTo(0, 0);
+}
+
+function prSetList(body, d){
+  body.innerHTML = d.sets.map((s, i) => {
+    const n = prAns(s).length, done = n === s.qs.length;
+    const status = (done ? `答對 ${prRight(s)} / ${s.qs.length} 題` : n ? `做到第 ${n} 題` : `${s.qs.length} 題`) + (s.origin ? `・${esc(s.origin)}` : "");
+    return `<div class="set-card"><div class="lb">${esc(s.label || "題組" + (i + 1))}</div><div class="tt">${esc(s.title)}</div>` +
+      `<div class="mt">${status}</div><button class="pbtn${done ? " ghost" : ""}" type="button" data-set="${i}">${done ? "看成績" : n ? "繼續作答" : "開始作答"}</button></div>`;
+  }).join("");
+  body.querySelectorAll("[data-set]").forEach(b => b.onclick = () => prOpen(+b.dataset.set, d));
+}
+
+function prExam(body, d){
+  const s = d.sets[PR.set], ans = prAns(s);
+  const prog = s.qs.map((q, i) => `<i class="${i < ans.length ? (ans[i] === q.answer ? "ok" : "ng") : i === PR.qi ? "cur" : ""}"></i>`).join("");
+  const top = `<div class="ex-top"><button class="plink" type="button" id="exBack">← 題組列表</button>` +
+    `<div class="ex-title"><span>${esc(s.label || "")}</span>${esc(s.title)}${s.origin ? `<em class="org">${esc(s.origin)}</em>` : ""}</div>` +
+    `<div class="ex-prog">${prog}<b>${Math.min(PR.qi + 1, s.qs.length)} / ${s.qs.length}</b></div></div>`;
+
+  if(PR.qi >= s.qs.length){ prScore(body, d, s, top); return; }
+
+  const figs = (s.figs || []).map(f => {
+    if(f.table) return `<figure class="ex-fig"><figcaption>${esc(f.cap)}</figcaption>` +     /* 表的標題在上、圖的標題在下（同考卷） */
+      `<div class="ex-tablewrap"><table class="ex-table"><thead><tr>${f.table.head.map(h => `<th>${esc(h)}</th>`).join("")}</tr></thead>` +
+      `<tbody>${f.table.rows.map(r => `<tr>${r.map(c => `<td>${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div></figure>`;
+    const inner = f.grid ? `<div class="fig-grid">${f.grid.map(x => PR.svg[x]).join("")}</div>` : PR.svg[f.src];
+    return `<figure class="ex-fig">${inner}<figcaption>${esc(f.cap)}</figcaption></figure>`;
+  });
+  const q = s.qs[PR.qi], a = ans[PR.qi], done = a !== undefined;
+  const opts = q.options.map((o, j) => {
+    let cls = "opt", tag = "";
+    if(done){
+      if(j === q.answer){ cls += " right"; tag = '<span class="tag">正確答案</span>'; }
+      else if(j === a){ cls += " wrong"; tag = '<span class="tag">你的答案</span>'; }
+    }
+    const why = done && q.why ? `<span class="why">${esc(q.why[j])}</span>` : "";
+    return `<button class="${cls}" type="button" data-o="${j}" aria-pressed="${!done && PR.sel === j}"${done ? " disabled" : ""}>` +
+      `<span class="k">(${ABCD[j]})</span><span>${esc(o)}${tag}</span>${why}</button>`;
+  }).join("");
+  const srcs = (q.sources || []).map(x => `<a class="link" href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a>`).join("、");
+  const feedback = done
+    ? `<div class="pnote"><div class="nt">相關重點</div>${esc(q.key || "")}` +
+      `<span class="src">${prNotesLink(d, q.page)}${srcs ? "　資料來源：" + srcs : ""}</span></div>`
+    : "";
+  const last = PR.qi === s.qs.length - 1;
+  body.innerHTML = top +
+    /* 題幹：電腦版一直展開；手機版第 2 題起先收合，免得每題都要滑過整組圖 */
+    `<div class="ex-grid"><details class="ex-stem" id="exStem"${PR.stemOpen || prWide() ? " open" : ""}>` +
+    `<summary>題幹資料（${(s.figs || []).map(f => esc(f.cap.split("　")[0])).join("、") || "說明"}）</summary>` +
+    `<p class="ex-intro">${esc(s.intro || "")}</p>${figs.join("")}` +
+    (s.src ? `<div class="ex-src">${esc(s.src)}</div>` : "") + `</details>` +
+    `<section class="ex-q"><span class="qn">${PR.qi + 1}</span><div class="qs">${esc(q.q)}</div>` +
+    (q.data ? `<div class="ex-data"><b>資料</b>${esc(q.data)}</div>` : "") +
+    (done ? `<div class="verdict ${a === q.answer ? "ok" : "ng"}">${a === q.answer ? "答對了" : "答錯了，正確答案是 (" + ABCD[q.answer] + ")"}</div>` : "") +
+    `<div class="opts">${opts}</div>${feedback}` +
+    `<div class="ex-actions"><span class="ex-hint">${done ? "Enter 下一題" : "鍵盤 A–D 選答，Enter 送出"}</span>` +
+    (done ? `<button class="pbtn" type="button" id="exNext">${last ? "看成績單" : "下一題 →"}</button>`
+          : `<button class="pbtn" type="button" id="exSubmit"${PR.sel === null ? " disabled" : ""}>送出答案</button>`) +
+    `</div></section></div>`;
+
+  document.getElementById("exBack").onclick = () => { PR.set = null; renderPractice(); };
+  const stem = document.getElementById("exStem");
+  stem.ontoggle = () => { if(!prWide()) PR.stemOpen = stem.open; };
+  body.querySelectorAll("[data-o]").forEach(b => b.onclick = () => prPick(+b.dataset.o));
+  const next = document.getElementById("exNext"), submit = document.getElementById("exSubmit");
+  if(next) next.onclick = prNext;
+  if(submit) submit.onclick = prSubmit;
+}
+function prPick(j){                     // 只改選取狀態，不重畫整頁（手機上才不會跳回頂端）
+  PR.sel = j;
+  document.querySelectorAll("#prBody .opt").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.o === j)));
+  document.getElementById("exSubmit").disabled = false;
+}
+function prSubmit(){
+  const s = PR.data[PR.unitId].sets[PR.set];
+  if(PR.sel === null) return;
+  prAns(s)[PR.qi] = PR.sel; PR.sel = null; renderPractice();
+}
+function prNext(){ PR.qi++; PR.sel = null; PR.stemOpen = false; renderPractice(); window.scrollTo(0, 0); }
+
+function prScore(body, d, s, top){
+  const ans = prAns(s), right = prRight(s);
+  body.innerHTML = top + `<div class="score"><div class="pr-kicker">成績單</div>` +
+    `<div class="big">${right}<small>/ ${s.qs.length} 題答對</small></div><ol>` +
+    s.qs.map((q, i) => {
+      const ok = ans[i] === q.answer;
+      return `<li><span class="m${ok ? "" : " ng"}">${ok ? "✓" : "✗"}</span><span>第 ${i + 1} 題　${esc(q.q.length > 34 ? q.q.slice(0, 34) + "…" : q.q)}</span>` +
+        `<button class="plink" type="button" data-review="${i}">看詳解</button></li>`;
+    }).join("") + `</ol><div class="row"><button class="pbtn" type="button" id="exRedo">重做這個題組</button>` +
+    `<button class="pbtn ghost" type="button" id="exList">回題組列表</button></div></div>`;
+  document.getElementById("exBack").onclick = document.getElementById("exList").onclick = () => { PR.set = null; renderPractice(); };
+  document.getElementById("exRedo").onclick = () => { PR.ans[PR.unitId + "/" + s.id] = []; prOpen(PR.set, d); };
+  body.querySelectorAll("[data-review]").forEach(b => b.onclick = () => { PR.qi = +b.dataset.review; renderPractice(); window.scrollTo(0, 0); });
+}
+
+document.addEventListener("keydown", e => {        // 鍵盤作答：A–D 或 1–4 選答，Enter 送出／下一題
+  if(activeTab !== "practice" || PR.mode !== "sets" || PR.set === null) return;
+  if(e.ctrlKey || e.metaKey || e.altKey || /INPUT|SELECT|TEXTAREA/.test(e.target.tagName)) return;
+  const s = PR.data[PR.unitId].sets[PR.set];
+  if(PR.qi >= s.qs.length) return;
+  const done = prAns(s)[PR.qi] !== undefined, k = e.key.toUpperCase();
+  const j = "ABCD".includes(k) ? "ABCD".indexOf(k) : "1234".indexOf(k);
+  if(!done && k.length === 1 && j >= 0 && j < s.qs[PR.qi].options.length){ e.preventDefault(); prPick(j); }
+  else if(e.key === "Enter" && !e.target.closest("a, summary, .ex-actions button, .ex-top button")){
+    e.preventDefault();
+    const opt = e.target.closest(".opt");
+    if(!done && opt) prPick(+opt.dataset.o);          // 焦點在哪個選項，就以那個選項作答
+    done ? prNext() : prSubmit();
+  }
+});
+
+/* 閃卡（記住／不熟存在學生自己的瀏覽器） */
+function prCards(body, d){
+  const key = "tutor-cards-" + PR.unitId, known = prStore(key) || {}, c = PR.cards;
+  const list = c.onlyWeak ? d.cards.filter(x => !known[x.id]) : d.cards;
+  const nKnown = d.cards.filter(x => known[x.id]).length;
+  if(!list.length){
+    body.innerHTML = `<div class="score fc"><div class="big">${nKnown}<small>/ ${d.cards.length} 張都記住了</small></div><br><button class="pbtn ghost" type="button" id="cardsAll">看全部卡片</button></div>`;
+    document.getElementById("cardsAll").onclick = () => { c.onlyWeak = false; c.i = 0; prCards(body, d); };
+    return;
+  }
+  if(c.i >= list.length) c.i = 0;
+  const card = list[c.i];
+  body.innerHTML = `<div class="fc"><div class="fc-bar"><span>第 <b>${c.i + 1}</b> / ${list.length} 張・已記住 <b>${nKnown}</b> / ${d.cards.length}</span>` +
+    `<label><input type="checkbox" id="onlyWeak"${c.onlyWeak ? " checked" : ""}> 只看還不熟的</label></div>` +
+    `<div class="flash" id="flash" role="button" tabindex="0" aria-label="點一下翻面">` +
+    (c.flipped ? `<div class="side">解釋</div><div class="back">${esc(card.back)}</div><div class="hint">${prNotesLink(d, card.page)}</div>`
+               : `<div class="side">名詞</div><div class="front">${esc(card.front)}</div><div class="hint">點一下翻面（空白鍵也可以）</div>`) +
+    `</div><div class="fc-actions"><button class="pbtn ghost" type="button" id="cPrev">← 上一張</button>` +
+    `<button class="pbtn ghost" type="button" id="cWeak">還不熟</button><button class="pbtn" type="button" id="cKnow">記住了</button>` +
+    `<button class="pbtn ghost" type="button" id="cNext">下一張 →</button></div></div>`;
+  const flip = () => { c.flipped = !c.flipped; prCards(body, d); document.getElementById("flash").focus(); };
+  const flash = document.getElementById("flash");
+  flash.onclick = e => { if(!e.target.closest("a")) flip(); };
+  flash.onkeydown = e => { if(e.key === "Enter" || e.key === " "){ e.preventDefault(); flip(); } };
+  const go = step => { c.i = (c.i + step + list.length) % list.length; c.flipped = false; prCards(body, d); };
+  document.getElementById("cPrev").onclick = () => go(-1);
+  document.getElementById("cNext").onclick = () => go(1);
+  document.getElementById("cKnow").onclick = () => { known[card.id] = true; prStore(key, known); if(c.onlyWeak){ c.flipped = false; prCards(body, d); } else go(1); };
+  document.getElementById("cWeak").onclick = () => { delete known[card.id]; prStore(key, known); go(1); };
+  document.getElementById("onlyWeak").onchange = e => { c.onlyWeak = e.target.checked; c.i = 0; c.flipped = false; prCards(body, d); };
+}
+
+/* 時事連結 */
+function prNews(body, d){
+  body.innerHTML = d.news.map(n =>
+    `<div class="nw"><div class="d">${esc(n.date)}</div><div><div class="t">${esc(n.title)}</div><div class="s">${esc(n.summary)}</div>` +
+    (n.link ? `<div class="pnote"><div class="nt">相關重點</div>${esc(n.link)}</div>` : "") +
+    (n.source ? `<div class="src">來源：<a class="link" href="${esc(n.source.url)}" target="_blank" rel="noopener">${esc(n.source.name)}</a></div>` : "") +
+    `</div></div>`).join("");
+}
+
 /* ── 分頁切換 ──────────────────────────────────────────── */
 
 function buildTabs(){
   const tabs = document.getElementById("tabs");
-  const all = (SHOW_SCHEDULE ? [{ id:"schedule", label:"課程進度" }] : []).concat(SUBJECTS);
+  const all = (SHOW_SCHEDULE ? [{ id:"schedule", label:"課程進度" }] : []).concat(SUBJECTS, SHOW_PRACTICE ? [{ id:"practice", label:"練習" }] : []);
   tabs.innerHTML = all.map(t =>
     `<button class="tab" id="tab-${t.id}" role="tab" type="button" data-tab="${t.id}"
-             aria-selected="false" aria-controls="${t.id === "schedule" ? "panel-schedule" : "panel-subject"}">${esc(t.label)}</button>`
+             aria-selected="false" aria-controls="${t.id === "schedule" ? "panel-schedule" : t.id === "practice" ? "panel-practice" : "panel-subject"}">${esc(t.label)}</button>`
   ).join("");
   tabs.querySelectorAll(".tab").forEach(btn => {
     btn.addEventListener("click", () => setTab(btn.dataset.tab, true));
@@ -606,15 +992,17 @@ function buildTabs(){
 
 function setTab(name, push){
   const home = SHOW_SCHEDULE ? "schedule" : SUBJECTS[0].id;
-  const valid = (SHOW_SCHEDULE && name === "schedule") || SUBJECTS.some(s => s.id === name);
+  const valid = (SHOW_SCHEDULE && name === "schedule") || (SHOW_PRACTICE && name === "practice") || SUBJECTS.some(s => s.id === name);
   activeTab = valid ? name : home;
 
-  document.querySelectorAll(".tab").forEach(btn => {
+  document.querySelectorAll("#tabs .tab").forEach(btn => {
     btn.setAttribute("aria-selected", btn.dataset.tab === activeTab ? "true" : "false");
   });
-  const isSchedule = activeTab === "schedule";
+  const isSchedule = activeTab === "schedule", isPractice = activeTab === "practice";
   document.getElementById("panel-schedule").hidden = !isSchedule;
-  document.getElementById("panel-subject").hidden  = isSchedule;
+  document.getElementById("panel-subject").hidden  = isSchedule || isPractice;
+  document.getElementById("panel-practice").hidden = !isPractice;
+  document.getElementById("controls").hidden = isPractice;
   document.getElementById("panel-subject").setAttribute("aria-labelledby", "tab-" + activeTab);
   document.getElementById("search").placeholder = isSchedule ? "搜尋課次或主題…" : "搜尋單元或教材…";
 
@@ -626,6 +1014,7 @@ function setTab(name, push){
 
 function render(){
   if(activeTab === "schedule") renderSchedule();
+  else if(activeTab === "practice") renderPractice();
   else renderSubject(activeTab);
 }
 

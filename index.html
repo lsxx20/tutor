@@ -338,27 +338,50 @@
   .score li .m.ng{ color:var(--ng); }
   .score .row{ display:flex; gap:.6rem; flex-wrap:wrap; }
 
-  /* 閃卡 */
-  .fc{ max-width:40rem; }
-  .fc-bar{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.5rem; font-size:.85rem; color:var(--muted); margin-bottom:.7rem; }
-  .fc-bar b{ color:var(--ink); font-weight:500; }
-  .fc-bar label{ display:flex; align-items:center; gap:.35rem; cursor:pointer; }
-  .flash{ display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; min-height:13rem;
-          border:1px solid var(--rule); border-top:4px solid var(--acc); border-radius:4px; background:#fff; padding:1.6rem 1.4rem; cursor:pointer; user-select:none; }
-  .flash .side{ font-size:.72rem; font-weight:700; color:var(--acc); letter-spacing:.12em; margin-bottom:.6rem; }
-  .flash .front{ font-size:1.4rem; font-weight:700; }
-  .flash .back{ font-size:.98rem; line-height:1.85; max-width:34em; }
-  .flash .hint{ margin-top:.9rem; font-size:.78rem; color:var(--muted); }
-  .fc-actions{ display:grid; grid-template-columns:repeat(4,1fr); gap:.5rem; margin-top:.8rem; }
-  .fc-actions .pbtn{ padding:.5rem .4rem; }
-
-  /* 時事 */
-  .nw{ display:grid; grid-template-columns:6.5rem 1fr; gap:.2rem 1.2rem; padding:1rem 0; border-bottom:1px solid var(--line); }
-  .nw .d{ font-size:.8rem; font-weight:700; color:var(--acc); font-variant-numeric:tabular-nums; padding-top:.15rem; }
-  .nw .t{ font-weight:700; font-size:1rem; margin-bottom:.25rem; }
-  .nw .s{ font-size:.9rem; line-height:1.75; }
-  .nw .pnote{ margin-top:.6rem; }
-  .nw .src{ font-size:.78rem; color:var(--muted); margin-top:.4rem; }
+  /* 題型：擷取、簡答 */
+  .pr-lead{ font-size:.88rem; line-height:1.75; color:var(--muted); margin:0 0 1rem; max-width:46rem; }
+  .set-card .dt{ font-weight:700; color:var(--ink); margin-right:.6rem; letter-spacing:0; font-variant-numeric:tabular-nums; }
+  .set-card .mt b{ margin-left:.6rem; color:var(--acc); font-weight:700; }
+  .tags{ display:flex; flex-wrap:wrap; gap:.3rem; margin-top:.3rem; }
+  .tagc{ font-size:.72rem; color:var(--acc); background:var(--soft); border:1px solid var(--rule); border-radius:3px; padding:0 .4rem; }
+  .qhd{ display:flex; align-items:center; gap:.6rem; }
+  .qt{ font-size:.75rem; color:var(--muted); border:1px solid var(--rule); border-radius:3px; padding:0 .4rem; }
+  .passage{ font-size:.95rem; line-height:2.05; background:#fff; border:1px solid var(--rule); border-radius:6px; padding:.7rem .9rem; }
+  .seg-s{ border-bottom:2px dotted #b9c7d4; padding:.05rem .05rem; cursor:pointer; -webkit-box-decoration-break:clone; box-decoration-break:clone; }
+  .seg-s:hover:not([aria-disabled]){ background:var(--soft); border-bottom-color:var(--acc); }
+  .seg-s[aria-pressed="true"]{ background:#dce7f1; border-bottom:2px solid var(--acc); }
+  .seg-s[aria-disabled]{ cursor:default; border-bottom-color:transparent; }
+  .seg-s.right{ background:var(--soft-2); border-bottom:2px solid var(--acc); font-weight:700; }
+  .seg-s.wrong{ background:var(--ng-soft); border-bottom:2px solid var(--ng); text-decoration:line-through; text-decoration-color:var(--ng); }
+  .hint-s{ font-size:.78rem; color:var(--muted); margin-top:.4rem; }
+  .why-b{ font-size:.86rem; line-height:1.75; margin-top:.7rem; color:#3d4954; }
+  .tick{ display:flex; flex-wrap:wrap; gap:.4rem .8rem; margin:0 0 .7rem; }
+  .tk{ display:flex; align-items:center; gap:.3rem; font-size:.9rem; border:1px solid var(--rule); border-radius:5px; padding:.35rem .7rem; cursor:pointer; }
+  .tk.right{ border-color:var(--acc); background:var(--soft-2); }
+  .tk.wrong{ border-color:var(--ng); background:var(--ng-soft); }
+  #exText{ width:100%; min-height:5.5rem; font:inherit; font-size:.95rem; line-height:1.7; color:var(--ink); border:1px solid var(--rule); border-radius:6px; padding:.6rem .75rem; resize:vertical; }
+  #exText:focus{ outline:none; border-color:var(--acc); box-shadow:0 0 0 2px #dce7f1; }
+  .cnt{ text-align:right; font-size:.75rem; color:var(--muted); margin-top:.2rem; }
+  .cnt.over{ color:var(--ng); font-weight:700; }
+  .mine{ background:#fff; border:1px dashed var(--rule); border-radius:6px; padding:.55rem .8rem; font-size:.92rem; line-height:1.7; }
+  .mine b{ display:block; font-size:.75rem; color:var(--muted); }
+  .rubric{ background:var(--soft); border-left:3px solid var(--acc); padding:.65rem .85rem; margin-top:.8rem; font-size:.88rem; line-height:1.75; }
+  .rubric .nt{ font-weight:700; color:var(--acc); }
+  .lvls{ margin:.2rem 0 0; padding-left:1.1rem; }
+  .lvls li{ margin:.2rem 0; }
+  .lvls li.on{ background:#dce7f1; border-radius:3px; }
+  .lvls b{ margin-right:.4rem; }
+  .selfgrade{ display:flex; flex-wrap:wrap; align-items:center; gap:.5rem; margin-top:.8rem; font-size:.88rem; }
+  .verdict .ptsg{ float:right; font-weight:500; color:var(--muted); font-size:.85rem; }
+  .verdict.pt{ color:#a26a12; }
+  .ex-prog i.pt{ background:#d9a441; }
+  .score li .m.pt{ color:#a26a12; }
+  .score .gp{ font-style:normal; color:var(--muted); font-size:.8rem; margin-left:.5rem; white-space:nowrap; }
+  .brief{ background:var(--soft); border:1px solid var(--rule); border-radius:6px; padding:.7rem .9rem .5rem; margin:0 0 1rem; }
+  .brief .nt{ font-weight:700; color:var(--acc); margin-bottom:.2rem; }
+  .brief .nt span{ font-weight:400; color:var(--muted); font-size:.8rem; margin-left:.5rem; }
+  .brief ul{ margin:0; padding-left:1.1rem; font-size:.9rem; line-height:1.75; }
+  .brief li{ margin:.15rem 0; }
 
   @media (max-width:860px){
     .ex-grid{ grid-template-columns:minmax(0,1fr); gap:1rem; }
@@ -377,8 +400,6 @@
     .ex-prog{ margin-left:0; }
     .set-card{ grid-template-columns:1fr; }
     .set-card .pbtn{ grid-row:auto; grid-column:1; margin-top:.6rem; }
-    .fc-actions{ grid-template-columns:1fr 1fr; }
-    .nw{ grid-template-columns:1fr; }
   }
 
   [hidden]{ display:none !important; }
@@ -740,26 +761,30 @@ function renderSubject(id){
 }
 
 /* ── 分頁：練習（quiz/index.json 列出單元 → 各單元 quiz/xxx.json）──
-   單元 JSON 格式（三個區塊都可省略，省略的就不顯示）：
+   單元 JSON 格式：
    { "unit":"單元17 美國", "notes":"files/xxx.pdf",
-     "sets":[ { "label":"題組一", "origin":"自編（或：改寫自 112 學測第 40 題）", "title":"題組名稱", "intro":"題幹說明", "src":"資料來源",
-                "figs":[ { "src":"quiz/x.svg", "cap":"圖 1　…" }, { "grid":["a.svg","b.svg"], "cap":"圖 2　…" },
-                         { "table":{ "head":["",""], "rows":[["",""]] }, "cap":"表 1　…" } ],
-                "qs":[ { "q":"題目", "data":"題目附的資料（可省）", "options":["","","",""], "answer":0,
-                         "why":["A 的說明","B","C","D"], "key":"相關重點", "page":2, "sources":[{ "name":"", "url":"" }] } ] } ],
-     "cards":[ { "id":"c1", "front":"名詞", "back":"解釋", "page":1 } ],
-     "news":[ { "date":"2026-07-01", "title":"", "summary":"", "link":"對應筆記哪一段", "source":{ "name":"", "url":"" } } ] } */
+     "sets":[ 題組, … ],      ← 「題組練習」
+     "news":[ 題組, … ] }     ← 「時事題組」：同樣格式，另加 date、brief（新聞重點）、concepts（對應概念）、sources
+   題組：{ "id":"u1", "label":"題組一", "origin":"自編", "title":"…", "intro":"題幹說明", "src":"資料來源",
+           "figs":[ { "src":"quiz/x.svg", "cap":"圖 1　…" }, { "grid":["a.svg","b.svg"], "cap":"…" },
+                    { "table":{ "head":[…], "rows":[[…]] }, "cap":"表 1　…" } ],
+           "qs":[ 題目, … ] }
+   題目共通欄位：q（題目）、data（題目附的資料，可省）、key（相關重點）、page（筆記頁碼）、pts（配分）
+     單選  type 省略：options[4]、answer（0 起算）、why[4]（每個選項的說明）
+     擷取  type:"extract"：passage（文章，依標點切成可點選的句子）、answer（正確的那一句）、why（說明）
+     簡答  type:"write"：limit（字數上限）、tick（可省，{ options:[…], answer:0 } 先勾選）、ref（參考答案）、
+           levels:[ { "lv":"等級2", "pts":3, "desc":"…" }, … ]（學生對照後自評）、tickGate:true（勾錯就 0 分） */
 
-const PR = { units:null, unitId:null, data:{}, svg:{}, mode:"sets", set:null, qi:0, sel:null, stemOpen:true, ans:{}, cards:{ i:0, onlyWeak:false, flipped:false } };
-const PR_MODES = [ ["sets","題組練習"], ["cards","閃卡"], ["news","時事連結"] ];
+const PR_MODES = [ ["sets","題組練習"], ["news","時事題組"] ];
 const ABCD = "ABCD";
 
-function prStore(key, val){            // 閃卡進度存在學生自己的瀏覽器；讀寫失敗就當作沒存
-  try{
-    if(val === undefined) return JSON.parse(localStorage.getItem(key) || "null");
-    localStorage.setItem(key, JSON.stringify(val));
-  }catch(e){ return null; }
+const PR_KEY = "tutor-practice-v3";        // 題目內容改版時把 v3 改成新編號，舊的作答紀錄就不會套到新題目
+function prLoad(){                     // 作答紀錄存在學生自己的瀏覽器，重新整理不會不見；讀不到就從頭開始
+  try{ return JSON.parse(localStorage.getItem(PR_KEY) || "{}"); }catch(e){ return {}; }
 }
+function prSave(){ try{ localStorage.setItem(PR_KEY, JSON.stringify(PR.ans)); }catch(e){} }
+const PR = { units:null, unitId:null, data:{}, svg:{}, mode:"sets", set:null, qi:0, sel:null, draft:"", stemOpen:true, ans:prLoad() };
+const prCount = s => s.replace(/\s/g, "").length;   // 字數不計空白
 function prNotesLink(d, page){
   return d.notes && page ? `<a class="link" href="${esc(d.notes)}#page=${page}" target="_blank" rel="noopener">看筆記第 ${page} 頁</a>` : "";
 }
@@ -779,6 +804,25 @@ PR_WIDE.addEventListener("change", e => {            // 平板轉成橫向時，
   if(stem && e.matches) stem.open = true;
 });
 const prFigSrcs = s => (s.figs || []).flatMap(f => f.grid || (f.src ? [f.src] : []));
+
+/* 題型與計分 */
+const prType = q => q.type || "choice";
+const prPts = q => q.pts || (prType(q) === "choice" ? 2 : 3);
+function prSegs(text){                  // 擷取題：「一句話」＝連續兩個標點符號之間的文字（同大考定義）
+  return text.split(/([，。；：、！？「」『』（）])/).filter(x => x !== "");
+}
+function prScoreOf(q, a){               // 已作答且已計分時回傳得分，否則 null
+  if(!a) return null;
+  if(prType(q) === "choice") return a.pick === q.answer ? prPts(q) : 0;
+  if(prType(q) === "extract") return a.pick === q.answer ? prPts(q) : 0;
+  if(a.level === undefined) return null;                    // 簡答：送出後還沒自評
+  return q.levels[a.level].pts;
+}
+const prList = d => d[PR.mode] || [];
+function prAns(s){ return PR.ans[PR.mode + "/" + PR.unitId + "/" + s.id] || (PR.ans[PR.mode + "/" + PR.unitId + "/" + s.id] = []); }
+const prDoneCount = s => prAns(s).filter((a, i) => prScoreOf(s.qs[i], a) !== null).length;
+const prTotal = s => s.qs.reduce((n, q) => n + prPts(q), 0);
+const prEarned = s => s.qs.reduce((n, q, i) => n + (prScoreOf(q, prAns(s)[i]) || 0), 0);
 
 async function renderPractice(){
   const host = document.getElementById("practiceBody");
@@ -805,176 +849,201 @@ async function renderPractice(){
     `<div class="pr-head"><div>${unitPick}<h2 class="pr-h">練習</h2></div>` +
     `<div class="seg" role="tablist">${modes.map(([k, l]) => `<button type="button" role="tab" data-mode="${k}" aria-selected="${k === PR.mode}">${l}</button>`).join("")}</div></div>` +
     `<div id="prBody"></div>`;
-  host.querySelectorAll("[data-mode]").forEach(b => b.onclick = () => { PR.mode = b.dataset.mode; PR.set = null; renderPractice(); });
+  host.querySelectorAll("[data-mode]").forEach(b => b.onclick = () => { PR.mode = b.dataset.mode; PR.set = null; PR.draft = ""; renderPractice(); });
   const pick = document.getElementById("prUnit");
-  if(pick) pick.onchange = () => { PR.unitId = pick.value; PR.set = null; PR.cards.i = 0; renderPractice(); };
+  if(pick) pick.onchange = () => { PR.unitId = pick.value; PR.set = null; renderPractice(); };
 
   const body = document.getElementById("prBody");
-  if(PR.mode === "sets") (PR.set === null ? prSetList : prExam)(body, d);
-  else if(PR.mode === "cards") prCards(body, d);
-  else prNews(body, d);
+  (PR.set === null ? prSetList : prExam)(body, d);
 }
 
-/* 題組：列表 → 一次一題作答 → 成績單 */
-function prAns(s){ return PR.ans[PR.unitId + "/" + s.id] || (PR.ans[PR.unitId + "/" + s.id] = []); }
-function prRight(s){ return prAns(s).filter((a, i) => a === s.qs[i].answer).length; }
+/* 題組列表 */
 async function prOpen(i, d){            // 先把題組的圖都讀好，之後換題、選答都不必等
-  const s = d.sets[i], ans = prAns(s);
+  const s = prList(d)[i];
   await Promise.all(prFigSrcs(s).map(prSvg));
-  PR.set = i; PR.sel = null; PR.stemOpen = true;
-  PR.qi = ans.length < s.qs.length ? ans.length : s.qs.length;   // 接著做；做完就看成績單
+  PR.set = i; PR.sel = null; PR.draft = ""; PR.stemOpen = true;
+  const next = s.qs.findIndex((q, k) => prScoreOf(q, prAns(s)[k]) === null);
+  PR.qi = next < 0 ? s.qs.length : next;                      // 接著做；做完就看成績單
   renderPractice(); window.scrollTo(0, 0);
 }
-
 function prSetList(body, d){
-  body.innerHTML = d.sets.map((s, i) => {
-    const n = prAns(s).length, done = n === s.qs.length;
-    const status = (done ? `答對 ${prRight(s)} / ${s.qs.length} 題` : n ? `做到第 ${n} 題` : `${s.qs.length} 題`) + (s.origin ? `・${esc(s.origin)}` : "");
-    return `<div class="set-card"><div class="lb">${esc(s.label || "題組" + (i + 1))}</div><div class="tt">${esc(s.title)}</div>` +
-      `<div class="mt">${status}</div><button class="pbtn${done ? " ghost" : ""}" type="button" data-set="${i}">${done ? "看成績" : n ? "繼續作答" : "開始作答"}</button></div>`;
+  const intro = PR.mode === "news"
+    ? `<p class="pr-lead">把 2026 年與美國有關的新聞，配上大考風格的題目。先讀新聞重點與圖表，再作答；每題都附詳解與對應的課本概念。</p>`
+    : `<p class="pr-lead">仿照近年學測、分科的出題方式：地名多半不直接給、選項只錯一個關鍵詞、要讀圖表或簡單計算。每組附一題非選擇題。</p>`;
+  body.innerHTML = intro + prList(d).map((s, i) => {
+    const n = prDoneCount(s), done = n === s.qs.length;
+    const meta = `${s.qs.length} 題・${prTotal(s)} 分` + (s.origin ? `・${esc(s.origin)}` : "");
+    const status = done ? `得分 ${prEarned(s)} / ${prTotal(s)}` : n ? `已完成 ${n} 題` : "";
+    const tags = (s.concepts || []).map(c => `<span class="tagc">${esc(c)}</span>`).join("");
+    return `<div class="set-card"><div class="lb">${s.date ? `<span class="dt">${esc(s.date)}</span>` : ""}${esc(s.label || "")}</div>` +
+      `<div class="tt">${esc(s.title)}</div><div class="mt">${meta}${status ? `<b>${status}</b>` : ""}</div>` +
+      (tags ? `<div class="tags">${tags}</div>` : "") +
+      `<button class="pbtn${done ? " ghost" : ""}" type="button" data-set="${i}">${done ? "看成績" : n ? "繼續作答" : "開始作答"}</button></div>`;
   }).join("");
   body.querySelectorAll("[data-set]").forEach(b => b.onclick = () => prOpen(+b.dataset.set, d));
 }
 
+/* 作答畫面 */
+function prFigHtml(f){
+  if(f.table) return `<figure class="ex-fig"><figcaption>${esc(f.cap)}</figcaption>` +     /* 表的標題在上、圖的標題在下（同考卷） */
+    `<div class="ex-tablewrap"><table class="ex-table"><thead><tr>${f.table.head.map(h => `<th>${esc(h)}</th>`).join("")}</tr></thead>` +
+    `<tbody>${f.table.rows.map(r => `<tr>${r.map(c => `<td>${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div></figure>`;
+  const inner = f.grid ? `<div class="fig-grid">${f.grid.map(x => PR.svg[x]).join("")}</div>` : PR.svg[f.src];
+  return `<figure class="ex-fig">${inner}<figcaption>${esc(f.cap)}</figcaption></figure>`;
+}
+function prStem(s){
+  const brief = s.brief ? `<div class="brief"><div class="nt">新聞重點${s.date ? `<span>${esc(s.date)}</span>` : ""}</div><ul>${s.brief.map(b => `<li>${esc(b)}</li>`).join("")}</ul></div>` : "";
+  const srcs = (s.sources || []).map(x => `<a class="link" href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a>`).join("、");
+  const label = (s.figs || []).map(f => esc(f.cap.split("　")[0])).join("、") || "說明";
+  /* 電腦版一直展開；手機版第 2 題起先收合，免得每題都要滑過整組圖 */
+  return `<details class="ex-stem" id="exStem"${PR.stemOpen || prWide() ? " open" : ""}><summary>${s.brief ? "新聞重點與" : ""}題幹資料（${label}）</summary>` +
+    brief + (s.intro ? `<p class="ex-intro">${esc(s.intro)}</p>` : "") + (s.figs || []).map(prFigHtml).join("") +
+    (s.src || srcs ? `<div class="ex-src">${esc(s.src || "")}${srcs ? `${s.src ? "<br>" : ""}來源：${srcs}` : ""}</div>` : "") + `</details>`;
+}
+
 function prExam(body, d){
-  const s = d.sets[PR.set], ans = prAns(s);
-  const prog = s.qs.map((q, i) => `<i class="${i < ans.length ? (ans[i] === q.answer ? "ok" : "ng") : i === PR.qi ? "cur" : ""}"></i>`).join("");
-  const top = `<div class="ex-top"><button class="plink" type="button" id="exBack">← 題組列表</button>` +
+  const s = prList(d)[PR.set], ans = prAns(s);
+  const prog = s.qs.map((q, i) => {
+    const got = prScoreOf(q, ans[i]);
+    const cls = got === null ? (i === PR.qi ? "cur" : "") : got === prPts(q) ? "ok" : got === 0 ? "ng" : "pt";
+    return `<i class="${cls}"></i>`;
+  }).join("");
+  const top = `<div class="ex-top"><button class="plink" type="button" id="exBack">← ${PR.mode === "news" ? "時事列表" : "題組列表"}</button>` +
     `<div class="ex-title"><span>${esc(s.label || "")}</span>${esc(s.title)}${s.origin ? `<em class="org">${esc(s.origin)}</em>` : ""}</div>` +
     `<div class="ex-prog">${prog}<b>${Math.min(PR.qi + 1, s.qs.length)} / ${s.qs.length}</b></div></div>`;
-
   if(PR.qi >= s.qs.length){ prScore(body, d, s, top); return; }
 
-  const figs = (s.figs || []).map(f => {
-    if(f.table) return `<figure class="ex-fig"><figcaption>${esc(f.cap)}</figcaption>` +     /* 表的標題在上、圖的標題在下（同考卷） */
-      `<div class="ex-tablewrap"><table class="ex-table"><thead><tr>${f.table.head.map(h => `<th>${esc(h)}</th>`).join("")}</tr></thead>` +
-      `<tbody>${f.table.rows.map(r => `<tr>${r.map(c => `<td>${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div></figure>`;
-    const inner = f.grid ? `<div class="fig-grid">${f.grid.map(x => PR.svg[x]).join("")}</div>` : PR.svg[f.src];
-    return `<figure class="ex-fig">${inner}<figcaption>${esc(f.cap)}</figcaption></figure>`;
-  });
-  const q = s.qs[PR.qi], a = ans[PR.qi], done = a !== undefined;
-  const opts = q.options.map((o, j) => {
-    let cls = "opt", tag = "";
-    if(done){
-      if(j === q.answer){ cls += " right"; tag = '<span class="tag">正確答案</span>'; }
-      else if(j === a){ cls += " wrong"; tag = '<span class="tag">你的答案</span>'; }
+  const q = s.qs[PR.qi], a = ans[PR.qi], got = prScoreOf(q, a), t = prType(q);
+  const typeTag = { choice:"單選題", extract:"非選擇題・擷取", write:"非選擇題・簡答" }[t];
+  let main = "", action = "";
+  if(t === "choice"){
+    main = `<div class="opts">${q.options.map((o, j) => {
+      let cls = "opt", tag = "";
+      if(a){ if(j === q.answer){ cls += " right"; tag = '<span class="tag">正確答案</span>'; } else if(j === a.pick){ cls += " wrong"; tag = '<span class="tag">你的答案</span>'; } }
+      const why = a && q.why ? `<span class="why">${esc(q.why[j])}</span>` : "";
+      return `<button class="${cls}" type="button" data-o="${j}" aria-pressed="${!a && PR.sel === j}"${a ? " disabled" : ""}>` +
+        `<span class="k">(${ABCD[j]})</span><span>${esc(o)}${tag}</span>${why}</button>`;
+    }).join("")}</div>`;
+  }else if(t === "extract"){
+    let k = -1;
+    main = `<div class="passage">${prSegs(q.passage).map(x => {
+      if(/^[，。；：、！？「」『』（）]$/.test(x)) return esc(x);
+      k++; let cls = "seg-s";
+      if(a){ if(x === q.answer) cls += " right"; else if(k === a.idx) cls += " wrong"; }
+      /* 用 span 而非 button：句子才能跟著文章自然換行 */
+      return `<span class="${cls}" data-g="${k}"${a ? ' aria-disabled="true"' : ` role="button" tabindex="0" aria-pressed="${PR.sel === k}"`}>${esc(x)}</span>`;
+    }).join("")}</div>` + (a ? "" : `<div class="hint-s">點選文章中的一句話（兩個標點之間的文字），再按送出。</div>`);
+  }else{
+    const tick = q.tick ? `<div class="tick">${q.tick.options.map((o, j) =>
+      `<label class="tk${a && j === q.tick.answer ? " right" : ""}${a && j === a.tick && j !== q.tick.answer ? " wrong" : ""}">` +
+      `<input type="radio" name="tk" value="${j}"${a ? " disabled" : ""}${(a ? a.tick : PR.sel) === j ? " checked" : ""}> ${esc(o)}</label>`).join("")}</div>` : "";
+    main = tick + (a
+      ? `<div class="mine"><b>你的作答</b>${esc(a.text) || "（空白）"}</div>`
+      : `<textarea id="exText" maxlength="${(q.limit || 60) + 10}" placeholder="${q.limit ? q.limit + " 字以內" : ""}">${esc(PR.draft)}</textarea>` +
+        `<div class="cnt" id="exCnt">${prCntText(q)}</div>`);
+    if(a){
+      const tickWrong = q.tick && a.tick !== q.tick.answer;
+      main += `<div class="rubric"><div class="nt">參考答案</div>${esc(q.ref)}` +
+        `<div class="nt" style="margin-top:.6rem">評分原則${q.tickGate ? "（勾選錯誤，說明不給分）" : ""}</div>` +
+        `<ol class="lvls">${q.levels.map((l, j) => `<li${a.level === j ? ' class="on"' : ""}><b>${esc(l.lv)}（${l.pts} 分）</b>${esc(l.desc)}</li>`).join("")}</ol></div>`;
+      if(a.level === undefined) main += q.tickGate && tickWrong
+        ? `<div class="selfgrade"><span>勾選錯誤，依評分原則本題 0 分。</span><button class="pbtn" type="button" data-lv="${q.levels.length - 1}">確認</button></div>`
+        : `<div class="selfgrade"><span>對照評分原則，你的作答屬於：</span>${q.levels.map((l, j) => `<button class="pbtn ghost" type="button" data-lv="${j}">${esc(l.lv)}</button>`).join("")}</div>`;
     }
-    const why = done && q.why ? `<span class="why">${esc(q.why[j])}</span>` : "";
-    return `<button class="${cls}" type="button" data-o="${j}" aria-pressed="${!done && PR.sel === j}"${done ? " disabled" : ""}>` +
-      `<span class="k">(${ABCD[j]})</span><span>${esc(o)}${tag}</span>${why}</button>`;
-  }).join("");
-  const srcs = (q.sources || []).map(x => `<a class="link" href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a>`).join("、");
-  const feedback = done
-    ? `<div class="pnote"><div class="nt">相關重點</div>${esc(q.key || "")}` +
-      `<span class="src">${prNotesLink(d, q.page)}${srcs ? "　資料來源：" + srcs : ""}</span></div>`
-    : "";
-  const last = PR.qi === s.qs.length - 1;
-  body.innerHTML = top +
-    /* 題幹：電腦版一直展開；手機版第 2 題起先收合，免得每題都要滑過整組圖 */
-    `<div class="ex-grid"><details class="ex-stem" id="exStem"${PR.stemOpen || prWide() ? " open" : ""}>` +
-    `<summary>題幹資料（${(s.figs || []).map(f => esc(f.cap.split("　")[0])).join("、") || "說明"}）</summary>` +
-    `<p class="ex-intro">${esc(s.intro || "")}</p>${figs.join("")}` +
-    (s.src ? `<div class="ex-src">${esc(s.src)}</div>` : "") + `</details>` +
-    `<section class="ex-q"><span class="qn">${PR.qi + 1}</span><div class="qs">${esc(q.q)}</div>` +
-    (q.data ? `<div class="ex-data"><b>資料</b>${esc(q.data)}</div>` : "") +
-    (done ? `<div class="verdict ${a === q.answer ? "ok" : "ng"}">${a === q.answer ? "答對了" : "答錯了，正確答案是 (" + ABCD[q.answer] + ")"}</div>` : "") +
-    `<div class="opts">${opts}</div>${feedback}` +
-    `<div class="ex-actions"><span class="ex-hint">${done ? "Enter 下一題" : "鍵盤 A–D 選答，Enter 送出"}</span>` +
-    (done ? `<button class="pbtn" type="button" id="exNext">${last ? "看成績單" : "下一題 →"}</button>`
-          : `<button class="pbtn" type="button" id="exSubmit"${PR.sel === null ? " disabled" : ""}>送出答案</button>`) +
-    `</div></section></div>`;
+  }
+  if(got !== null){
+    const v = got === prPts(q) ? ["ok", "答對了"] : got === 0 ? ["ng", t === "choice" ? `答錯了，正確答案是 (${ABCD[q.answer]})` : "這題 0 分"] : ["pt", "部分得分"];
+    main = `<div class="verdict ${v[0]}">${v[1]}<span class="ptsg">${got} / ${prPts(q)} 分</span></div>` + main;
+    if(t === "extract") main += `<div class="why-b">${esc(q.why)}</div>`;
+    const srcs = (q.sources || []).map(x => `<a class="link" href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a>`).join("、");
+    main += `<div class="pnote"><div class="nt">相關重點</div>${esc(q.key || "")}<span class="src">${prNotesLink(d, q.page)}${srcs ? "　資料來源：" + srcs : ""}</span></div>`;
+    action = `<span class="ex-hint">Enter 下一題</span><button class="pbtn" type="button" id="exNext">${PR.qi === s.qs.length - 1 ? "看成績單" : "下一題 →"}</button>`;
+  }else if(!a){
+    const hint = t === "choice" ? "鍵盤 A–D 選答，Enter 送出" : t === "extract" ? "Enter 送出" : "寫完後送出，再對照評分原則自評";
+    action = `<span class="ex-hint">${hint}</span><button class="pbtn" type="button" id="exSubmit"${prReady(q) ? "" : " disabled"}>送出答案</button>`;
+  }
+  body.innerHTML = top + `<div class="ex-grid">${prStem(s)}` +
+    `<section class="ex-q"><div class="qhd"><span class="qn">${PR.qi + 1}</span><span class="qt">${typeTag}・${prPts(q)} 分</span></div>` +
+    `<div class="qs">${esc(q.q)}</div>` + (q.data ? `<div class="ex-data"><b>資料</b>${esc(q.data)}</div>` : "") +
+    main + (action ? `<div class="ex-actions">${action}</div>` : "") + `</section></div>`;
 
-  document.getElementById("exBack").onclick = () => { PR.set = null; renderPractice(); };
+  document.getElementById("exBack").onclick = () => { PR.set = null; PR.draft = ""; renderPractice(); };
   const stem = document.getElementById("exStem");
   stem.ontoggle = () => { if(!prWide()) PR.stemOpen = stem.open; };
   body.querySelectorAll("[data-o]").forEach(b => b.onclick = () => prPick(+b.dataset.o));
+  if(!ans[PR.qi]) body.querySelectorAll("[data-g]").forEach(b => b.onclick = () => prPick(+b.dataset.g));
+  body.querySelectorAll("input[name=tk]").forEach(r => r.onchange = () => prPick(+r.value));
+  body.querySelectorAll("[data-lv]").forEach(b => b.onclick = () => { ans[PR.qi].level = +b.dataset.lv; prSave(); renderPractice(); });
+  const ta = document.getElementById("exText");
+  if(ta) ta.oninput = () => {
+    PR.draft = ta.value;
+    const c = document.getElementById("exCnt"); c.innerHTML = prCntText(q); c.classList.toggle("over", prCount(ta.value) > q.limit);
+    prReadyBtn(q);
+  };
   const next = document.getElementById("exNext"), submit = document.getElementById("exSubmit");
   if(next) next.onclick = prNext;
   if(submit) submit.onclick = prSubmit;
 }
+function prCntText(q){                  // 字數提示：超過上限時提醒（大考超過字數可能不予計分）
+  const n = prCount(PR.draft), lim = q.limit || 60;
+  return `${n} / ${lim} 字` + (n > lim ? "　已超過字數上限，大考可能不予計分" : "（不計空白）");
+}
+function prReady(q){                     // 能不能送出：單選、擷取要先選；簡答要寫字（有勾選題時也要勾）
+  if(prType(q) !== "write") return PR.sel !== null;
+  return PR.draft.trim().length > 0 && (!q.tick || PR.sel !== null);
+}
+function prReadyBtn(q){ const b = document.getElementById("exSubmit"); if(b) b.disabled = !prReady(q); }
 function prPick(j){                     // 只改選取狀態，不重畫整頁（手機上才不會跳回頂端）
+  const s = prList(PR.data[PR.unitId])[PR.set], q = s.qs[PR.qi];
   PR.sel = j;
-  document.querySelectorAll("#prBody .opt").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.o === j)));
-  document.getElementById("exSubmit").disabled = false;
+  document.querySelectorAll("#prBody .opt, #prBody .seg-s").forEach(b => b.setAttribute("aria-pressed", String(+(b.dataset.o ?? b.dataset.g) === j)));
+  prReadyBtn(q);
 }
 function prSubmit(){
-  const s = PR.data[PR.unitId].sets[PR.set];
-  if(PR.sel === null) return;
-  prAns(s)[PR.qi] = PR.sel; PR.sel = null; renderPractice();
+  const s = prList(PR.data[PR.unitId])[PR.set], q = s.qs[PR.qi];
+  if(!prReady(q)) return;
+  const t = prType(q), a = prAns(s);
+  if(t === "choice") a[PR.qi] = { pick:PR.sel };
+  else if(t === "extract"){
+    const segs = prSegs(q.passage).filter(x => !/^[，。；：、！？「」『』（）]$/.test(x));
+    a[PR.qi] = { idx:PR.sel, pick:segs[PR.sel] };
+  }else a[PR.qi] = { text:PR.draft.trim(), tick:q.tick ? PR.sel : undefined };
+  PR.sel = null; PR.draft = ""; prSave(); renderPractice();
 }
-function prNext(){ PR.qi++; PR.sel = null; PR.stemOpen = false; renderPractice(); window.scrollTo(0, 0); }
+function prNext(){ PR.qi++; PR.sel = null; PR.draft = ""; PR.stemOpen = false; renderPractice(); window.scrollTo(0, 0); }
 
 function prScore(body, d, s, top){
-  const ans = prAns(s), right = prRight(s);
+  const ans = prAns(s);
   body.innerHTML = top + `<div class="score"><div class="pr-kicker">成績單</div>` +
-    `<div class="big">${right}<small>/ ${s.qs.length} 題答對</small></div><ol>` +
+    `<div class="big">${prEarned(s)}<small>/ ${prTotal(s)} 分</small></div><ol>` +
     s.qs.map((q, i) => {
-      const ok = ans[i] === q.answer;
-      return `<li><span class="m${ok ? "" : " ng"}">${ok ? "✓" : "✗"}</span><span>第 ${i + 1} 題　${esc(q.q.length > 34 ? q.q.slice(0, 34) + "…" : q.q)}</span>` +
+      const got = prScoreOf(q, ans[i]), full = got === prPts(q);
+      return `<li><span class="m${full ? "" : got ? " pt" : " ng"}">${full ? "✓" : got ? "△" : "✗"}</span>` +
+        `<span>第 ${i + 1} 題　${esc(q.q.length > 30 ? q.q.slice(0, 30) + "…" : q.q)}<em class="gp">${got} / ${prPts(q)} 分</em></span>` +
         `<button class="plink" type="button" data-review="${i}">看詳解</button></li>`;
     }).join("") + `</ol><div class="row"><button class="pbtn" type="button" id="exRedo">重做這個題組</button>` +
-    `<button class="pbtn ghost" type="button" id="exList">回題組列表</button></div></div>`;
+    `<button class="pbtn ghost" type="button" id="exList">回列表</button></div></div>`;
   document.getElementById("exBack").onclick = document.getElementById("exList").onclick = () => { PR.set = null; renderPractice(); };
-  document.getElementById("exRedo").onclick = () => { PR.ans[PR.unitId + "/" + s.id] = []; prOpen(PR.set, d); };
+  document.getElementById("exRedo").onclick = () => { PR.ans[PR.mode + "/" + PR.unitId + "/" + s.id] = []; prSave(); prOpen(PR.set, d); };
   body.querySelectorAll("[data-review]").forEach(b => b.onclick = () => { PR.qi = +b.dataset.review; renderPractice(); window.scrollTo(0, 0); });
 }
 
-document.addEventListener("keydown", e => {        // 鍵盤作答：A–D 或 1–4 選答，Enter 送出／下一題
-  if(activeTab !== "practice" || PR.mode !== "sets" || PR.set === null) return;
+document.addEventListener("keydown", e => {        // 鍵盤：單選 A–D／1–4 選答；Enter 送出或下一題（打字時不攔截）
+  if(activeTab !== "practice" || PR.set === null) return;
   if(e.ctrlKey || e.metaKey || e.altKey || /INPUT|SELECT|TEXTAREA/.test(e.target.tagName)) return;
-  const s = PR.data[PR.unitId].sets[PR.set];
-  if(PR.qi >= s.qs.length) return;
-  const done = prAns(s)[PR.qi] !== undefined, k = e.key.toUpperCase();
+  const s = prList(PR.data[PR.unitId])[PR.set];
+  if(!s || PR.qi >= s.qs.length) return;
+  const q = s.qs[PR.qi], a = prAns(s)[PR.qi], k = e.key.toUpperCase();
   const j = "ABCD".includes(k) ? "ABCD".indexOf(k) : "1234".indexOf(k);
-  if(!done && k.length === 1 && j >= 0 && j < s.qs[PR.qi].options.length){ e.preventDefault(); prPick(j); }
-  else if(e.key === "Enter" && !e.target.closest("a, summary, .ex-actions button, .ex-top button")){
-    e.preventDefault();
-    const opt = e.target.closest(".opt");
-    if(!done && opt) prPick(+opt.dataset.o);          // 焦點在哪個選項，就以那個選項作答
-    done ? prNext() : prSubmit();
+  if(!a && prType(q) === "choice" && k.length === 1 && j >= 0 && j < q.options.length){ e.preventDefault(); prPick(j); }
+  else if(!a && e.key === " " && e.target.closest(".seg-s")){ e.preventDefault(); prPick(+e.target.closest(".seg-s").dataset.g); }
+  else if(e.key === "Enter" && !e.target.closest("a, summary, .ex-actions button, .ex-top button, .selfgrade button")){
+    const pickBtn = e.target.closest(".opt, .seg-s");
+    if(!a && PR.sel === null && pickBtn){ e.preventDefault(); prPick(+(pickBtn.dataset.o ?? pickBtn.dataset.g)); prSubmit(); }   // 還沒選才以焦點所在的選項作答
+    else if(prScoreOf(q, a) !== null){ e.preventDefault(); prNext(); }
+    else if(!a && prType(q) !== "write"){ e.preventDefault(); prSubmit(); }
   }
 });
-
-/* 閃卡（記住／不熟存在學生自己的瀏覽器） */
-function prCards(body, d){
-  const key = "tutor-cards-" + PR.unitId, known = prStore(key) || {}, c = PR.cards;
-  const list = c.onlyWeak ? d.cards.filter(x => !known[x.id]) : d.cards;
-  const nKnown = d.cards.filter(x => known[x.id]).length;
-  if(!list.length){
-    body.innerHTML = `<div class="score fc"><div class="big">${nKnown}<small>/ ${d.cards.length} 張都記住了</small></div><br><button class="pbtn ghost" type="button" id="cardsAll">看全部卡片</button></div>`;
-    document.getElementById("cardsAll").onclick = () => { c.onlyWeak = false; c.i = 0; prCards(body, d); };
-    return;
-  }
-  if(c.i >= list.length) c.i = 0;
-  const card = list[c.i];
-  body.innerHTML = `<div class="fc"><div class="fc-bar"><span>第 <b>${c.i + 1}</b> / ${list.length} 張・已記住 <b>${nKnown}</b> / ${d.cards.length}</span>` +
-    `<label><input type="checkbox" id="onlyWeak"${c.onlyWeak ? " checked" : ""}> 只看還不熟的</label></div>` +
-    `<div class="flash" id="flash" role="button" tabindex="0" aria-label="點一下翻面">` +
-    (c.flipped ? `<div class="side">解釋</div><div class="back">${esc(card.back)}</div><div class="hint">${prNotesLink(d, card.page)}</div>`
-               : `<div class="side">名詞</div><div class="front">${esc(card.front)}</div><div class="hint">點一下翻面（空白鍵也可以）</div>`) +
-    `</div><div class="fc-actions"><button class="pbtn ghost" type="button" id="cPrev">← 上一張</button>` +
-    `<button class="pbtn ghost" type="button" id="cWeak">還不熟</button><button class="pbtn" type="button" id="cKnow">記住了</button>` +
-    `<button class="pbtn ghost" type="button" id="cNext">下一張 →</button></div></div>`;
-  const flip = () => { c.flipped = !c.flipped; prCards(body, d); document.getElementById("flash").focus(); };
-  const flash = document.getElementById("flash");
-  flash.onclick = e => { if(!e.target.closest("a")) flip(); };
-  flash.onkeydown = e => { if(e.key === "Enter" || e.key === " "){ e.preventDefault(); flip(); } };
-  const go = step => { c.i = (c.i + step + list.length) % list.length; c.flipped = false; prCards(body, d); };
-  document.getElementById("cPrev").onclick = () => go(-1);
-  document.getElementById("cNext").onclick = () => go(1);
-  document.getElementById("cKnow").onclick = () => { known[card.id] = true; prStore(key, known); if(c.onlyWeak){ c.flipped = false; prCards(body, d); } else go(1); };
-  document.getElementById("cWeak").onclick = () => { delete known[card.id]; prStore(key, known); go(1); };
-  document.getElementById("onlyWeak").onchange = e => { c.onlyWeak = e.target.checked; c.i = 0; c.flipped = false; prCards(body, d); };
-}
-
-/* 時事連結 */
-function prNews(body, d){
-  body.innerHTML = d.news.map(n =>
-    `<div class="nw"><div class="d">${esc(n.date)}</div><div><div class="t">${esc(n.title)}</div><div class="s">${esc(n.summary)}</div>` +
-    (n.link ? `<div class="pnote"><div class="nt">相關重點</div>${esc(n.link)}</div>` : "") +
-    (n.source ? `<div class="src">來源：<a class="link" href="${esc(n.source.url)}" target="_blank" rel="noopener">${esc(n.source.name)}</a></div>` : "") +
-    `</div></div>`).join("");
-}
 
 /* ── 分頁切換 ──────────────────────────────────────────── */
 

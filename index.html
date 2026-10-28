@@ -266,6 +266,8 @@
   .plink{ appearance:none; border:0; background:none; font:inherit; font-size:.85rem; color:var(--acc); cursor:pointer; padding:0; }
   .plink:hover{ text-decoration:underline; text-underline-offset:2px; }
   #panel-practice :focus-visible{ outline:2px solid var(--acc); outline-offset:2px; }
+  #panel-practice input{ accent-color:var(--acc); }
+  .pr-lead, .ex-q .qs, .ex-intro, .ex-fig figcaption, .opt, .why-b, .pnote, .brief li{ text-wrap:pretty; }
 
   /* 題組列表 */
   .set-card{ display:grid; grid-template-columns:1fr auto; align-items:center; gap:.2rem 1.2rem; background:#fff;
@@ -273,7 +275,9 @@
   .set-card .lb{ font-size:.75rem; font-weight:700; color:var(--acc); letter-spacing:.06em; }
   .set-card .tt{ font-size:1.08rem; font-weight:700; }
   .set-card .mt{ font-size:.82rem; color:var(--muted); }
-  .set-card .pbtn{ grid-row:1 / span 3; grid-column:2; }
+  .set-card .pbtn{ grid-row:1 / span 3; grid-column:2; min-width:6.5rem; }
+  .set-card:has(.tags) .pbtn{ grid-row:1 / span 4; }
+  .set-card .mt b{ white-space:nowrap; }
 
   /* 作答畫面 */
   .ex-top{ display:flex; align-items:center; flex-wrap:wrap; gap:.6rem 1rem; margin-bottom:1.1rem; }
@@ -287,10 +291,13 @@
   .ex-prog b{ margin-left:.4rem; font-weight:500; color:var(--ink); font-variant-numeric:tabular-nums; }
   .ex-grid{ display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); gap:1.8rem; align-items:start; }
   .ex-stem > summary{ display:none; }
-  .ex-title .org{ font-style:normal; font-weight:400; font-size:.75rem; color:var(--muted); border:1px solid var(--rule); border-radius:3px; padding:0 .35rem; margin-left:.5rem; vertical-align:1px; }
+  .ex-title .org{ display:inline-block; font-style:normal; font-weight:400; font-size:.75rem; line-height:1.6; color:var(--muted); border:1px solid var(--rule); border-radius:3px; padding:0 .35rem; margin-left:.5rem; vertical-align:1px; }
+  .nw{ white-space:nowrap; }
   .ex-intro{ font-size:.92rem; line-height:1.8; margin:0 0 .9rem; }
   .ex-fig{ margin:0 0 1rem; }
   .ex-fig svg{ display:block; width:100%; height:auto; }
+  .figscroll{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .swipe{ display:none; }
   .ex-fig figcaption{ text-align:center; font-size:.82rem; font-weight:500; margin-top:.35rem; }
   .fig-grid{ display:grid; grid-template-columns:1fr 1fr; gap:.4rem .8rem; }
   .ex-fig > figcaption:first-child{ margin:0 0 .4rem; }
@@ -333,8 +340,8 @@
   .score .big{ font-size:2.4rem; font-weight:700; color:var(--acc); line-height:1.1; font-variant-numeric:tabular-nums; }
   .score .big small{ font-size:1rem; color:var(--muted); font-weight:500; margin-left:.3rem; }
   .score ol{ list-style:none; padding:0; margin:1rem 0; border-top:1px solid var(--line); }
-  .score li{ display:grid; grid-template-columns:1.6rem 1fr auto; gap:.6rem; align-items:baseline; padding:.6rem 0; border-bottom:1px solid var(--line); font-size:.9rem; }
-  .score li .m{ font-weight:700; color:var(--acc); }
+  .score li{ display:grid; grid-template-columns:1.6rem minmax(0,1fr) auto auto; gap:.6rem; align-items:baseline; padding:.6rem 0; border-bottom:1px solid var(--line); font-size:.9rem; }
+  .score li .m{ font-weight:700; color:var(--acc); font-size:1rem; line-height:1; text-align:center; }
   .score li .m.ng{ color:var(--ng); }
   .score .row{ display:flex; gap:.6rem; flex-wrap:wrap; }
 
@@ -355,7 +362,8 @@
   .seg-s.wrong{ background:var(--ng-soft); border-bottom:2px solid var(--ng); text-decoration:line-through; text-decoration-color:var(--ng); }
   .hint-s{ font-size:.78rem; color:var(--muted); margin-top:.4rem; }
   .why-b{ font-size:.86rem; line-height:1.75; margin-top:.7rem; color:#3d4954; }
-  .tick{ display:flex; flex-wrap:wrap; gap:.4rem .8rem; margin:0 0 .7rem; }
+  .tick{ display:grid; grid-template-columns:repeat(auto-fit, minmax(8.5rem, 1fr)); gap:.4rem .6rem; margin:0 0 .7rem; }
+  .tk:has(input:checked){ border-color:var(--acc); background:var(--soft); box-shadow:inset 0 0 0 1px var(--acc); }
   .tk{ display:flex; align-items:center; gap:.3rem; font-size:.9rem; border:1px solid var(--rule); border-radius:5px; padding:.35rem .7rem; cursor:pointer; }
   .tk.right{ border-color:var(--acc); background:var(--soft-2); }
   .tk.wrong{ border-color:var(--ng); background:var(--ng-soft); }
@@ -369,14 +377,18 @@
   .rubric .nt{ font-weight:700; color:var(--acc); }
   .lvls{ margin:.2rem 0 0; padding-left:1.1rem; }
   .lvls li{ margin:.2rem 0; }
-  .lvls li.on{ background:#dce7f1; border-radius:3px; }
+  .lvls li.on{ background:#dce7f1; border-radius:3px; padding:.1rem .4rem; margin-left:-.4rem; margin-right:-.4rem; }
   .lvls b{ margin-right:.4rem; }
   .selfgrade{ display:flex; flex-wrap:wrap; align-items:center; gap:.5rem; margin-top:.8rem; font-size:.88rem; }
+  .selfgrade > span{ flex:1 0 100%; }
+  .selfgrade .pbtn{ flex:1 1 0; max-width:9rem; padding-left:.6rem; padding-right:.6rem; }
   .verdict .ptsg{ float:right; font-weight:500; color:var(--muted); font-size:.85rem; }
   .verdict.pt{ color:#a26a12; }
   .ex-prog i.pt{ background:#d9a441; }
   .score li .m.pt{ color:#a26a12; }
-  .score .gp{ font-style:normal; color:var(--muted); font-size:.8rem; margin-left:.5rem; white-space:nowrap; }
+  .score .sq{ display:flex; gap:.7rem; min-width:0; }
+  .score .sq b{ font-weight:500; white-space:nowrap; flex:none; }
+  .score .gp{ font-style:normal; color:var(--muted); font-size:.8rem; white-space:nowrap; font-variant-numeric:tabular-nums; }
   .brief{ background:var(--soft); border:1px solid var(--rule); border-radius:6px; padding:.7rem .9rem .5rem; margin:0 0 1rem; }
   .brief .nt{ font-weight:700; color:var(--acc); margin-bottom:.2rem; }
   .brief .nt span{ font-weight:400; color:var(--muted); font-size:.8rem; margin-left:.5rem; }
@@ -389,7 +401,7 @@
     .ex-stem[open]{ padding-bottom:.8rem; }
     .ex-stem > summary{ display:block; cursor:pointer; list-style:none; padding:.7rem 0; font-size:.88rem; font-weight:700; color:var(--acc); }
     .ex-stem > summary::-webkit-details-marker{ display:none; }
-    .ex-stem > summary::before{ content:"▸"; display:inline-block; width:1.1em; transition:transform .15s; }
+    .ex-stem > summary::before{ content:"▸"; display:inline-block; width:1em; margin-right:.1em; text-align:center; transition:transform .15s; }
     .ex-stem[open] > summary::before{ transform:rotate(90deg); }
     .ex-hint{ display:none; }
   }
@@ -399,7 +411,13 @@
     .pr-head{ align-items:flex-start; }
     .ex-prog{ margin-left:0; }
     .set-card{ grid-template-columns:1fr; }
-    .set-card .pbtn{ grid-row:auto; grid-column:1; margin-top:.6rem; }
+    .set-card .pbtn, .set-card:has(.tags) .pbtn{ grid-row:auto; grid-column:1; margin-top:.6rem; }
+    .ex-title .org{ display:table; margin:.3rem 0 0; }
+    .figscroll svg{ min-width:34rem; }
+    .swipe{ display:block; font-size:.72rem; color:var(--muted); text-align:right; margin:.15rem 0 0; }
+    .fig-grid{ grid-template-columns:minmax(0,1fr); max-width:21rem; margin:0 auto; gap:.8rem; }
+    .score li{ grid-template-columns:1.4rem minmax(0,1fr) auto; }
+    .score li .plink{ grid-column:2 / -1; justify-self:start; }
   }
 
   [hidden]{ display:none !important; }
@@ -521,7 +539,7 @@ const COURSE = {
 const SHOW_SCHEDULE = false;
 
 /* 練習分頁（讀 quiz/index.json）：true 顯示、false 隱藏 */
-const SHOW_PRACTICE = true;
+const SHOW_PRACTICE = false;
 
 /* 科目分頁：id 用英文（會變成網址 #hash），label 是分頁上的字，
    tag 是 data.json 標題裡 [ ] 的科目名稱。要加科目就在這裡多一筆。 */
@@ -872,7 +890,7 @@ function prSetList(body, d){
     : `<p class="pr-lead">仿照近年學測、分科的出題方式：地名多半不直接給、選項只錯一個關鍵詞、要讀圖表或簡單計算。每組附一題非選擇題。</p>`;
   body.innerHTML = intro + prList(d).map((s, i) => {
     const n = prDoneCount(s), done = n === s.qs.length;
-    const meta = `${s.qs.length} 題・${prTotal(s)} 分` + (s.origin ? `・${esc(s.origin)}` : "");
+    const meta = `${s.qs.length} 題・${prTotal(s)} 分` + (s.origin ? `・${prOrigin(esc(s.origin))}` : "");
     const status = done ? `得分 ${prEarned(s)} / ${prTotal(s)}` : n ? `已完成 ${n} 題` : "";
     const tags = (s.concepts || []).map(c => `<span class="tagc">${esc(c)}</span>`).join("");
     return `<div class="set-card"><div class="lb">${s.date ? `<span class="dt">${esc(s.date)}</span>` : ""}${esc(s.label || "")}</div>` +
@@ -884,21 +902,26 @@ function prSetList(body, d){
 }
 
 /* 作答畫面 */
+function prNoBreak(s){                     // 日期、題號等不在中間斷行
+  return s.replace(/（?\d{4}-\d{2}(?:-\d{2})?）?/g, m => `<span class="nw">${m}</span>`);
+}
+function prOrigin(o){ return o.split("、").map(x => `<span class="nw">${x}</span>`).join("、"); }
 function prFigHtml(f){
   if(f.table) return `<figure class="ex-fig"><figcaption>${esc(f.cap)}</figcaption>` +     /* 表的標題在上、圖的標題在下（同考卷） */
     `<div class="ex-tablewrap"><table class="ex-table"><thead><tr>${f.table.head.map(h => `<th>${esc(h)}</th>`).join("")}</tr></thead>` +
     `<tbody>${f.table.rows.map(r => `<tr>${r.map(c => `<td>${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div></figure>`;
   const inner = f.grid ? `<div class="fig-grid">${f.grid.map(x => PR.svg[x]).join("")}</div>` : PR.svg[f.src];
-  return `<figure class="ex-fig">${inner}<figcaption>${esc(f.cap)}</figcaption></figure>`;
+  const body = f.grid ? inner : `<div class="figscroll">${inner}</div><div class="swipe">← 可左右滑動看完整的圖 →</div>`;
+  return `<figure class="ex-fig">${body}<figcaption>${esc(f.cap)}</figcaption></figure>`;
 }
 function prStem(s){
   const brief = s.brief ? `<div class="brief"><div class="nt">新聞重點${s.date ? `<span>${esc(s.date)}</span>` : ""}</div><ul>${s.brief.map(b => `<li>${esc(b)}</li>`).join("")}</ul></div>` : "";
-  const srcs = (s.sources || []).map(x => `<a class="link" href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a>`).join("、");
+  const srcs = (s.sources || []).map(x => `<a class="link" href="${esc(x.url)}" target="_blank" rel="noopener">${prNoBreak(esc(x.name))}</a>`).join("、");
   const label = (s.figs || []).map(f => esc(f.cap.split("　")[0])).join("、") || "說明";
   /* 電腦版一直展開；手機版第 2 題起先收合，免得每題都要滑過整組圖 */
   return `<details class="ex-stem" id="exStem"${PR.stemOpen || prWide() ? " open" : ""}><summary>${s.brief ? "新聞重點與" : ""}題幹資料（${label}）</summary>` +
     brief + (s.intro ? `<p class="ex-intro">${esc(s.intro)}</p>` : "") + (s.figs || []).map(prFigHtml).join("") +
-    (s.src || srcs ? `<div class="ex-src">${esc(s.src || "")}${srcs ? `${s.src ? "<br>" : ""}來源：${srcs}` : ""}</div>` : "") + `</details>`;
+    (s.src || srcs ? `<div class="ex-src">${prNoBreak(esc(s.src || ""))}${srcs ? `${s.src ? "<br>" : ""}來源：${srcs}` : ""}</div>` : "") + `</details>`;
 }
 
 function prExam(body, d){
@@ -909,7 +932,7 @@ function prExam(body, d){
     return `<i class="${cls}"></i>`;
   }).join("");
   const top = `<div class="ex-top"><button class="plink" type="button" id="exBack">← ${PR.mode === "news" ? "時事列表" : "題組列表"}</button>` +
-    `<div class="ex-title"><span>${esc(s.label || "")}</span>${esc(s.title)}${s.origin ? `<em class="org">${esc(s.origin)}</em>` : ""}</div>` +
+    `<div class="ex-title"><span>${esc(s.label || "")}</span>${esc(s.title)}${s.origin ? `<em class="org">${prOrigin(esc(s.origin))}</em>` : ""}</div>` +
     `<div class="ex-prog">${prog}<b>${Math.min(PR.qi + 1, s.qs.length)} / ${s.qs.length}</b></div></div>`;
   if(PR.qi >= s.qs.length){ prScore(body, d, s, top); return; }
 
@@ -1018,8 +1041,8 @@ function prScore(body, d, s, top){
     `<div class="big">${prEarned(s)}<small>/ ${prTotal(s)} 分</small></div><ol>` +
     s.qs.map((q, i) => {
       const got = prScoreOf(q, ans[i]), full = got === prPts(q);
-      return `<li><span class="m${full ? "" : got ? " pt" : " ng"}">${full ? "✓" : got ? "△" : "✗"}</span>` +
-        `<span>第 ${i + 1} 題　${esc(q.q.length > 30 ? q.q.slice(0, 30) + "…" : q.q)}<em class="gp">${got} / ${prPts(q)} 分</em></span>` +
+      return `<li><span class="m${full ? "" : got ? " pt" : " ng"}">${full ? "○" : got ? "△" : "✕"}</span>` +
+        `<span class="sq"><b>第 ${i + 1} 題</b><span>${esc(q.q.length > 30 ? q.q.slice(0, 30) + "…" : q.q)}</span></span><em class="gp">${got} / ${prPts(q)} 分</em>` +
         `<button class="plink" type="button" data-review="${i}">看詳解</button></li>`;
     }).join("") + `</ol><div class="row"><button class="pbtn" type="button" id="exRedo">重做這個題組</button>` +
     `<button class="pbtn ghost" type="button" id="exList">回列表</button></div></div>`;
